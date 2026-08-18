@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cirugía Plástica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+      --accent: #B5687C; --accent-light: #F3E4E8; --accent-dark: #8A4B5C; --accent-soft: #F3E4E8;
+      --ink: #2B2622; --paper: #FBF8F5; --paper-2: #F3EEE9; --line: #E4DCD3;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Source Serif 4', Georgia, serif; background:var(--paper); color:var(--ink); line-height:1.68; }
+    .layout { display:flex; min-height:100vh; }
+    nav.sidebar { width:290px; flex-shrink:0; background:var(--paper-2); border-right:1px solid var(--line);
+      padding:28px 18px; position:sticky; top:0; height:100vh; overflow-y:auto; font-family:'Inter',sans-serif; }
+    nav.sidebar .brand { font-family:'Source Serif 4',Georgia,serif; font-size:1.05rem; font-weight:600; color:var(--accent-dark); margin-bottom:2px; }
+    nav.sidebar .theme-tag { font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin-bottom:22px; display:block; }
+    nav.sidebar a { display:flex; align-items:center; gap:8px; font-size:.83rem; color:#55504A; text-decoration:none;
+      padding:7px 10px; border-radius:8px; margin-bottom:2px; transition:background .15s,color .15s; }
+    nav.sidebar a:hover { background:var(--paper); color:var(--accent-dark); }
+    .nav-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; opacity:.55; }
+    nav.sidebar a.nav-sub { padding-left:26px; font-size:.78rem; color:#7a746c; }
+    nav.sidebar a.nav-sub:before { content:'—'; margin-right:6px; opacity:.5; }
+    main { flex:1; max-width:880px; margin:0 auto; padding:0 48px 120px; }
+
+    header.doc-hero { background: linear-gradient(135deg, var(--accent-dark), var(--accent) 65%);
+      margin:0 -48px 44px; padding:64px 48px 46px; color:#fff; position:relative; overflow:hidden; }
+    header.doc-hero::after { content:""; position:absolute; right:-60px; top:-60px; width:260px; height:260px;
+      border-radius:50%; background:rgba(255,255,255,0.08); }
+    header.doc-hero .kicker { font-family:'Inter',sans-serif; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+      color:rgba(255,255,255,.85); margin-bottom:14px; }
+    header.doc-hero h1 { font-size:2.6rem; margin:0 0 10px; font-weight:600; }
+    header.doc-hero p { font-family:'Inter',sans-serif; color:rgba(255,255,255,.88); font-size:1.02rem; max-width:56ch; margin:0; }
+
+    h2 { font-size:1.55rem; margin-top:3.4em; padding-bottom:.5em; border-bottom:2px solid var(--accent-soft);
+      color:var(--accent-dark); display:flex; align-items:center; gap:10px; scroll-margin-top:20px; }
+    h2 .icon { font-size:1.3rem; }
+    h3 { font-size:1.05rem; margin-top:2.2em; color:#fff; font-family:'Inter',sans-serif; font-weight:600;
+      display:inline-block; background:var(--accent); padding:5px 14px; border-radius:20px; }
+    h4 { font-family:'Inter',sans-serif; font-size:.95rem; font-weight:700; color:var(--accent-dark);
+      margin-top:1.9em; margin-bottom:.3em; padding-left:12px; border-left:3px solid var(--accent); }
+    p { margin:.9em 0; }
+    ul, ol { padding-left:1.3em; }
+    li { margin:.35em 0; }
+    strong { color:var(--accent-dark); }
+    hr { border:none; height:3px; margin:2.8em 0;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 60%); border-radius:2px; opacity:.5; }
+
+    ol { counter-reset:step; list-style:none; padding-left:0; }
+    ol li { counter-increment:step; position:relative; padding-left:38px; margin:.6em 0; }
+    ol li::before { content:counter(step); position:absolute; left:0; top:0; width:24px; height:24px;
+      background:var(--accent-soft); color:var(--accent-dark); border-radius:50%; font-family:'Inter',sans-serif;
+      font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+
+    table { width:100%; border-collapse:collapse; margin:1.2em 0; font-family:'Inter',sans-serif; font-size:.87rem;
+      box-shadow:0 1px 3px rgba(0,0,0,.05); border-radius:10px; overflow:hidden; }
+    th { background:var(--accent-dark); color:#fff; text-align:left; padding:11px 13px; }
+    td { padding:10px 13px; border-bottom:1px solid var(--line); vertical-align:top; background:#fff; }
+    tr:last-child td { border-bottom:none; }
+
+    /* Role play burbujas */
+    .rp-row { display:flex; margin:10px 0; font-family:'Inter',sans-serif; font-size:.92rem; }
+    .rp-bubble { position:relative; max-width:78%; }
+    .bubble-p { justify-content:flex-start; }
+    .bubble-a { justify-content:flex-end; }
+    .bubble-p .rp-bubble { background:var(--paper-2); border-radius:14px 14px 14px 3px; padding:10px 16px; }
+    .bubble-a .rp-bubble { background:var(--accent-light); border-radius:14px 14px 3px 14px; padding:10px 16px; }
+    .rp-text { margin:0; }
+    .bubble-p::before { content:"Paciente"; align-self:center; margin-right:8px; font-size:.65rem;
+      text-transform:uppercase; letter-spacing:.06em; color:#948C82; font-family:'Inter',sans-serif; }
+    .bubble-a::after { content:"Asesora"; align-self:center; margin-left:8px; font-size:.65rem;
+      text-transform:uppercase; letter-spacing:.06em; color:var(--accent-dark); font-family:'Inter',sans-serif; }
+    .copy-mini { position:absolute; right:6px; top:8px; background:none; border:none; cursor:pointer;
+      font-size:.85rem; opacity:.45; padding:2px; }
+    .copy-mini:hover { opacity:1; }
+
+    /* Tarjetas de cita / analogía / cierre */
+    .quote-card { background:#fff; border-left:4px solid var(--accent); border-radius:0 12px 12px 0;
+      padding:16px 18px; margin:1.4em 0; box-shadow:0 1px 4px rgba(0,0,0,.04); font-family:'Inter',sans-serif; }
+    .quote-label { font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; color:var(--accent-dark);
+      font-weight:700; margin-bottom:6px; }
+    .quote-text { font-family:'Source Serif 4',Georgia,serif; font-style:italic; font-size:1.02rem; margin:0 0 10px; color:var(--ink); }
+
+    /* Tarjetas de mensajes tipo WhatsApp listos para copiar */
+    .msg-card { background:var(--paper-2); border:1px dashed var(--accent); border-radius:14px;
+      padding:14px 16px; margin:1em 0; font-family:'Inter',sans-serif; }
+    .msg-text { margin:0 0 10px; font-size:.93rem; }
+
+    .copy-btn { font-family:'Inter',sans-serif; font-size:.76rem; font-weight:600; background:var(--accent);
+      color:#fff; border:none; padding:6px 13px; border-radius:20px; cursor:pointer; transition:background .15s, transform .1s; }
+    .copy-btn:hover { background:var(--accent-dark); }
+    .copy-btn:active { transform:scale(.95); }
+    .copy-btn.copied { background:#4C9A6A !important; }
+
+    .menu-toggle { display:none; position:fixed; top:16px; left:16px; z-index:1000; width:46px; height:46px;
+      background:var(--accent); border-radius:50%; border:none; box-shadow:0 4px 14px rgba(0,0,0,.2);
+      cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+    .menu-toggle span { display:block; width:20px; height:2px; background:#fff; border-radius:2px; transition:transform .2s, opacity .2s; }
+    .menu-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity:0; }
+    .menu-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+    .menu-overlay { display:none; position:fixed; inset:0; background:rgba(43,38,34,.45); z-index:900; }
+    .menu-overlay.open { display:block; }
+
+    .back-top { position:fixed; bottom:24px; right:24px; background:var(--accent); color:#fff; width:42px; height:42px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;
+      font-size:1.1rem; box-shadow:0 4px 14px rgba(0,0,0,.15); }
+
+    @media (max-width:900px) {
+      .menu-toggle { display:flex; }
+      nav.sidebar { display:block; position:fixed; top:0; left:0; height:100vh; width:78vw; max-width:320px; z-index:950;
+        transform:translateX(-105%); transition:transform .25s ease; box-shadow:4px 0 20px rgba(0,0,0,.15); }
+      nav.sidebar.open { transform:translateX(0); }
+      nav.sidebar .brand { margin-top:36px; }
+      main { padding:0 20px 80px; }
+      header.doc-hero { margin:0 -20px 34px; padding:70px 20px 34px; }
+      header.doc-hero h1 { font-size:1.9rem; }
+      .rp-bubble { max-width:92%; }
+    }
+    </style>
+</head>
+<body>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="layout">
+<nav class="sidebar" id="sidebarNav">
+  <span class="theme-tag">Cirugía Plástica</span>
+  <a href="#índice-de-objeciones"><span class="nav-dot"></span>Índice de Objeciones</a>
+<a href="#aumento-de-pecho"><span class="nav-dot"></span>👙Aumento de Pecho</a>
+<a href="#reducción-de-mama"><span class="nav-dot"></span>🔻Reducción de Mama</a>
+<a href="#mastopexia"><span class="nav-dot"></span>🎀Mastopexia</a>
+<a href="#explantación-de-prótesis-mamarias"><span class="nav-dot"></span>🔄Explantación de Prótesis Mamarias</a>
+<a href="#blefaroplastia"><span class="nav-dot"></span>👁Blefaroplastia</a>
+<a href="#rinoplastia"><span class="nav-dot"></span>👃Rinoplastia</a>
+<a href="#lip-lift"><span class="nav-dot"></span>💋Lip Lift</a>
+<a href="#lifting-de-cuello"><span class="nav-dot"></span>🦢Lifting de Cuello</a>
+<a href="#lifting-facial"><span class="nav-dot"></span>✨Lifting Facial</a>
+<a href="#mentoplastia"><span class="nav-dot"></span>🦷Mentoplastia</a>
+<a href="#bichectomía"><span class="nav-dot"></span>💆Bichectomía</a>
+<a href="#otoplastia"><span class="nav-dot"></span>👂Otoplastia</a>
+<a href="#liposucción"><span class="nav-dot"></span>🫧Liposucción</a>
+<a href="#liposucción-hd"><span class="nav-dot"></span>💪Liposucción HD</a>
+<a href="#lipoescultura-tradicional"><span class="nav-dot"></span>🌀Lipoescultura Tradicional</a>
+<a href="#abdominoplastia"><span class="nav-dot"></span>🧵Abdominoplastia</a>
+<a href="#body-lift"><span class="nav-dot"></span>✂Body Lift</a>
+<a href="#glúteos-con-grasa-propia"><span class="nav-dot"></span>🍑Glúteos con Grasa Propia</a>
+<a href="#lifting-de-muslos"><span class="nav-dot"></span>🦵Lifting de Muslos</a>
+<a href="#lifting-de-brazos"><span class="nav-dot"></span>🙌Lifting de Brazos</a>
+<a href="#labioplastia"><span class="nav-dot"></span>🌸Labioplastia</a>
+<a href="#implante-capilar-técnica-fue"><span class="nav-dot"></span>💇Implante Capilar · Técnica FUE</a>
+<a href="#ginecomastia"><span class="nav-dot"></span>👨Ginecomastia</a>
+<a href="#venta-consultiva"><span class="nav-dot"></span>🎯Venta Consultiva · Pain-Selling</a>
+<a href="#las-4-fases-del-método" class="nav-sub">Las 4 fases del método</a>
+<a href="#3-reglas-de-oro-para-que-sea-ético-y-natural" class="nav-sub">3 reglas de oro</a>
+<a href="#un-mismo-método-dos-ritmos-distintos" class="nav-sub">Dos ritmos: cirugía vs. estética</a>
+<a href="#estrategia-por-tipo-de-cliente"><span class="nav-dot"></span>👤Estrategia por Tipo de Cliente</a>
+<a href="#presentar-presupuesto-de-cirugía"><span class="nav-dot"></span>🏥Presentar Presupuesto de Cirugía</a>
+<a href="#activar-leads"><span class="nav-dot"></span>📲Activar Leads</a>
+<a href="#protocolo-anti-plantones-y-reenganche-cirugía-plástica"><span class="nav-dot"></span>📵Protocolo Anti-Plantones y Reenganche · Cirugía Plástica</a>
+</nav>
+<main>
+  <header class="doc-hero" id="top">
+    <span class="kicker">Manual de Consulta</span>
+    <h1>Cirugía Plástica</h1>
+    <p>Protocolos de asesoría consultiva, argumentarios y role plays por perfil de paciente.</p>
+  </header>
+  <hr />
+<h2 id="índice-de-objeciones">Índice de Objeciones</h2>
+<h3>Busca la objeción, ve directa al tratamiento</h3>
+<p>Cuando el paciente te ponga una pega, mira aquí qué tratamientos ya tienen el perfil o el role play preparado para esa objeción exacta, y entra directamente a esa sección.</p>
+<h4>😟 Miedo al dolor / postoperatorio</h4>
+<p><a href="#mastopexia">Mastopexia</a> · <a href="#lip-lift">Lip Lift</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#lipoescultura-tradicional">Lipoescultura Tradicional</a> · <a href="#body-lift">Body Lift</a> · <a href="#glúteos-con-grasa-propia">Glúteos con Grasa Propia</a></p>
+<h4>🏥 Miedo a la cirugía o la anestesia</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#liposucción">Liposucción</a> · <a href="#abdominoplastia">Abdominoplastia</a></p>
+<h4>💰 "Es muy caro" / duda económica</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#mastopexia">Mastopexia</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#lip-lift">Lip Lift</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#mentoplastia">Mentoplastia</a> · <a href="#bichectomía">Bichectomía</a> · <a href="#otoplastia">Otoplastia</a> · <a href="#liposucción">Liposucción</a> · <a href="#liposucción-hd">Liposucción HD</a> · <a href="#lipoescultura-tradicional">Lipoescultura Tradicional</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#body-lift">Body Lift</a> · <a href="#glúteos-con-grasa-propia">Glúteos con Grasa Propia</a> · <a href="#lifting-de-muslos">Lifting de Muslos</a> · <a href="#lifting-de-brazos">Lifting de Brazos</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4>😢 Carga emocional / autoestima / inseguridad</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#mastopexia">Mastopexia</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#lip-lift">Lip Lift</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#mentoplastia">Mentoplastia</a> · <a href="#bichectomía">Bichectomía</a> · <a href="#otoplastia">Otoplastia</a> · <a href="#lipoescultura-tradicional">Lipoescultura Tradicional</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#body-lift">Body Lift</a> · <a href="#glúteos-con-grasa-propia">Glúteos con Grasa Propia</a> · <a href="#lifting-de-muslos">Lifting de Muslos</a> · <a href="#lifting-de-brazos">Lifting de Brazos</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4>💔 Pareja o entorno en contra</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#mastopexia">Mastopexia</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#lip-lift">Lip Lift</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#lifting-de-muslos">Lifting de Muslos</a> · <a href="#lifting-de-brazos">Lifting de Brazos</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4>⚡ Prisa por resultados / impaciencia</h4>
+<p><a href="#blefaroplastia">Blefaroplastia</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#mentoplastia">Mentoplastia</a> · <a href="#bichectomía">Bichectomía</a> · <a href="#otoplastia">Otoplastia</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#lifting-de-muslos">Lifting de Muslos</a> · <a href="#lifting-de-brazos">Lifting de Brazos</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4>😒 Mala experiencia previa / escepticismo</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#mastopexia">Mastopexia</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#lip-lift">Lip Lift</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#liposucción-hd">Liposucción HD</a> · <a href="#lipoescultura-tradicional">Lipoescultura Tradicional</a></p>
+<h4>🔪 Miedo a las cicatrices</h4>
+<p><a href="#mastopexia">Mastopexia</a> · <a href="#body-lift">Body Lift</a></p>
+<h4>🧠 Paciente muy informada (quiere detalle técnico)</h4>
+<p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#mentoplastia">Mentoplastia</a> · <a href="#bichectomía">Bichectomía</a> · <a href="#otoplastia">Otoplastia</a> · <a href="#liposucción-hd">Liposucción HD</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#glúteos-con-grasa-propia">Glúteos con Grasa Propia</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4>🎯 Objeciones técnicas concretas (con la respuesta ya lista)</h4>
+<ul>
+<li>"Me preocupa que el pelo trasplantado se caiga" → <a href="#implante-capilar-técnica-fue">Implante Capilar</a></li>
+<li>"No sé si es para tanto operarme por esto" (vergüenza, minimiza su propio malestar) → <a href="#ginecomastia">Ginecomastia</a></li>
+</ul>
+<hr />
+<h2 id="aumento-de-pecho"><span class="icon">👙</span>Aumento de Pecho</h2>
+<h3>Descripción del Proceso</h3>
+<p>Cirugía de 90 minutos con anestesia general segura. Alta el mismo día o ingreso opcional. Prótesis redondas o anatómicas en plano submuscular o subglandular según morfología y objetivo. Resultado progresivo hasta los 3–6 meses.</p>
+<h4>Tipos de Prótesis</h4>
+<ul>
+<li>Redonda de perfil moderado — aspecto natural con escote suave</li>
+<li>Redonda de perfil alto — más escote y proyección</li>
+<li>Anatómica — forma de gota, resultado muy natural</li>
+<li>Prótesis de alta gama (Mentor / Motiva) con garantía de por vida</li>
+</ul>
+<h4>Recuperación por Fases</h4>
+<ol>
+<li>Días 1–4: reposo relativo, presión en el pecho, medicación</li>
+<li>Días 5–10: actividades suaves, caminar, no conducir</li>
+<li>Días 10–21: reincorporación laboral (trabajo no físico)</li>
+<li>1 mes: vida casi normal, baja la inflamación</li>
+<li>6 semanas: retorno progresivo al ejercicio</li>
+<li>3–6 meses: resultado final natural y estable</li>
+</ol>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;No es cambiar tu cuerpo, es sentirte a gusto con él. La mayoría de mujeres no buscan verse distintas, solo llegar a esa proporción que notan que les falta, nada más.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Tratamiento Postoperatorio Obligatorio</h4>
+<p>4–6 sesiones · Drenaje linfático + radiofrecuencia médica + seguimiento. Previene contractura capsular. Se inicia a los pocos días de la cirugía, gestionado desde la clínica e incluido en el presupuesto.</p>
+<h3>10 Perfiles de Paciente · Role Plays</h3>
+<h4>Perfil 1 · Insegura con miedo a la recuperación</h4>
+<p><em>Role play — apertura de la asesora:</em> "Hola, bienvenida. Cuéntame, ¿qué te gustaría mejorar o qué te ha traído hasta aquí?"</p>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Llevo tiempo dándole vueltas. Siempre he tenido poco pecho y me noto vacía, sobre todo en la parte de arriba del escote. Pero me da mucho miedo el postoperatorio.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Gracias por contármelo. Es algo muy personal. ¿Cuándo empezaste a sentir esa incomodidad?</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Hace años, pero después de adelgazar se acentuó. Lo pienso cada vez que me pruebo ropa o voy a la playa.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Es normal. Podríamos valorar una prótesis anatómica o redonda de perfil moderado. En cuanto al postoperatorio: no es doloroso, es molesto. Sentirás presión, como un sujetador muy ajustado, perfectamente controlable con medicación. A los 4–5 días haces vida casi normal.</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Lo que más me frena es pensar en cómo voy a estar los primeros días.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Entiendo. Días 1–4 reposo relativo, del 5 al 10 actividades suaves, a las 2 semanas vida casi normal. Y no estás sola: tienes contacto directo con el equipo en todo momento. ¿Cómo te gustaría verte cuando esto pase?</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Segura. Libre. Que me quede bien la ropa. Es más emocional que otra cosa.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Totalmente. Esto no va solo de estética, va de recuperar una parte de ti. ¿Te reservo una valoración médica gratuita esta semana?</p></div></div>
+<p><strong>Claves de este perfil:</strong></p>
+<ul>
+<li>Escucha activa y validación emocional</li>
+<li>Explicación detallada de la recuperación</li>
+<li>Postoperatorio presentado como parte del cuidado integral, no como un extra</li>
+<li>Cierre empático con cita gratuita</li>
+</ul>
+<h4>Perfil 2 · Impaciente, quiere operarse ya</h4>
+<p><em>Role play — apertura de la paciente:</em> "Quiero operarme cuanto antes. Solo quiero saber si tenéis fechas próximas."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Genial que lo tengas tan claro. Antes de darte fecha, cuéntame: ¿qué tipo de resultado buscas?</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Natural pero que se note. Estoy delgada, quiero volumen sin pasarme.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Perfecto. Prótesis redonda de perfil moderado, vía submamaria, plano submuscular. Operación 90 min, anestesia segura, misma tarde en casa. Los 2 primeros días reposo; del 4º o 5º retomas actividades. A las 2 semanas te sientes casi normal.</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">No quiero complicaciones raras.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Por eso el tratamiento postoperatorio es obligatorio: 4–6 sesiones de drenaje y radiofrecuencia para evitar encapsulamiento. Todo incluido. ¿Te va bien mañana o pasado para la valoración?</p></div></div>
+<p><strong>Claves de este perfil:</strong></p>
+<ul>
+<li>Adaptarse al ritmo rápido sin perder rigor</li>
+<li>Confirmar seguridad y profesionalidad del proceso</li>
+<li>Presentar el postoperatorio como parte del éxito, no como un obstáculo</li>
+<li>Dar disponibilidad ágil pero sin bajar el rigor</li>
+</ul>
+<h4>Perfiles 3–11 · Claves y enfoque</h4>
+<h4>3 · Convencida — decidida, necesita rapidez</h4>
+<p>Validar la decisión con datos técnicos. Confirmar cirujano, fecha y postoperatorio. Cierre directo.</p>
+<h4>4 · Insegura económica — bloqueo económico real</h4>
+<p>Mostrar el proceso como inversión emocional. Financiación hasta 36 meses sin entrada. Calcular cuotas juntas.</p>
+<h4>5 · Pareja en contra — conflicto externo</h4>
+<p>Reforzar autonomía y motivo personal. La cirugía es "por ti, no para nadie". Empoderar sin atacar a terceros.</p>
+<h4>6 · Miedo a la operación — ansiedad preoperatoria</h4>
+<p>Explicar paso a paso: despertar tranquila, no hay dolor agudo, solo presión. Anestesista especializado.</p>
+<h4>7 · Experiencia negativa — desconfianza</h4>
+<p>Validar sin quitar peso. Mostrar diferencias objetivas: materiales de alta gama + postoperatorio obligatorio preventivo.</p>
+<h4>8 · Autoestima muy baja — dolor psicológico profundo</h4>
+<p>Sensibilidad extrema. No prometer que todo cambia, pero sí que puede ser el primer paso de recuperación. Acompañar desde la raíz.</p>
+<h4>9 · Muy informada — racional, exigente</h4>
+<p>Datos técnicos: Mentor/Motiva, dual plane, 15 años de experiencia, controles a 24h/7/15/30/90 días, línea de enfermería 24h.</p>
+<h4>10 · Económica pura — solo precio, sin emoción visible</h4>
+<p>Precio cerrado desde X€, qué incluye, financiación. Si abre la puerta emocional, adaptar. Si no, información clara y profesional.</p>
+<h4>11 · Muy informada + — con marcas ya investigadas</h4>
+<p>Respetar la investigación previa. Confirmar Mentor/Motiva. Recordar que el cirujano valorará si lo elegido es ideal para su cuerpo.</p>
+<hr />
+<h2 id="reducción-de-mama"><span class="icon">🔻</span>Reducción de Mama</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Mamoplastia de Reducción</p>
+<h3>Técnica Quirúrgica</h3>
+<p>Reducción con cicatriz vertical o en T invertida. Reposición de la areola. Combinable con mastopexia en caída severa. Duración 2–3 h, anestesia general, alta el mismo día o al siguiente. Vida normal a los 7–10 días, deporte al mes.</p>
+<h4>Exploración Emocional</h4>
+<ul>
+<li>¿Desde cuándo lo vienes pensando?</li>
+<li>¿Cómo te afecta en tu día a día?</li>
+<li>¿Qué es lo que más te incomoda o limita?</li>
+<li>¿Cómo te gustaría sentirte después?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Imagínate quitarte una mochila que llevas cargando todo el día, todos los días. El cuerpo, literalmente, deja de arrastrar ese peso.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Insegura <span style="font-weight:400;opacity:.65;font-size:.85em;">· Complejo corporal</span></h4>
+<p>"¿Te imaginas poder elegir ropa sin preocuparte o dormir sin dolor de espalda?" Acompañamiento empático + visualización del cambio.</p>
+<h4>Miedo a la Cirugía <span style="font-weight:400;opacity:.65;font-size:.85em;">· Ansiedad</span></h4>
+<p>Más de 10 años de experiencia en cirugía mamaria. Anestesia suave, postoperatorio controlado. Mostrar casos reales similares.</p>
+<h4>Pareja en Contra <span style="font-weight:400;opacity:.65;font-size:.85em;">· Presión externa</span></h4>
+<p>"¿Y tú qué quieres hacer realmente? Es tu cuerpo y tu bienestar." Devolver la decisión a ella.</p>
+<h4>Emocional <span style="font-weight:400;opacity:.65;font-size:.85em;">· Llora / Historia de vida</span></h4>
+<p>Escucha activa sin prisa. Validación profunda. "Esto no va solo de reducir volumen, va de liberarte de una carga."</p>
+<h4>Muy Informada <span style="font-weight:400;opacity:.65;font-size:.85em;">· Técnica / Exigente</span></h4>
+<p>Técnicas verticales o T invertida. Recuperación 7–10 días. Deporte al mes. Solvencia del equipo y garantías reales.</p>
+<h4>Dudas Económicas <span style="font-weight:400;opacity:.65;font-size:.85em;">· Freno financiero</span></h4>
+<p>"No es solo cirugía estética, es salud emocional y física." Financiación sin intereses o cuotas adaptadas.</p>
+<div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Quieres que veamos agenda para la primera valoración médica gratuita? Así conoces al cirujano y saldrás con un presupuesto cerrado. Estás a un paso de dar un cambio que llevas tiempo deseando.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="mastopexia"><span class="icon">🎀</span>Mastopexia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Elevación Mamaria</p>
+<h3>¿Qué es?</h3>
+<p>Cirugía que recoloca mamas caídas devolviéndoles forma firme y estética. Puede ser sin prótesis (si hay suficiente volumen), con prótesis o con lipofilling. Indicada tras embarazos, lactancia, pérdida de peso o edad. Duración 1,5–3 h.</p>
+<h4>Tipos Según Ptosis</h4>
+<ul>
+<li>Periareolar — alrededor de la areola · caída leve</li>
+<li>Vertical "piruleta" — caída moderada</li>
+<li>T-invertida — caída avanzada o piel muy flácida</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;La piel cae por el paso del tiempo, el embarazo o los cambios de peso, no porque hayas hecho nada mal. Aquí simplemente la recolocamos donde estaba antes.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional <span style="font-weight:400;opacity:.65;font-size:.85em;">· Llanto · Renacimiento</span></h4>
+<p>"Hay mujeres que lloran de emoción la primera vez que se ven. Es reencontrarse con su reflejo."</p>
+<h4>Miedo a Cicatrices <span style="font-weight:400;opacity:.65;font-size:.85em;">· Preocupación frecuente</span></h4>
+<p>Las cicatrices se planifican de forma estética. Con cuidados se atenúan mucho. Pasado un año, en la mayoría de casos apenas visibles.</p>
+<h4>Miedo al Postop. <span style="font-weight:400;opacity:.65;font-size:.85em;">· Ansiedad</span></h4>
+<p>No suele ser dolorosa, más bien molestia por inflamación. El sujetador postquirúrgico ayuda. Vida tranquila desde la primera semana.</p>
+<h4>Pareja en Contra <span style="font-weight:400;opacity:.65;font-size:.85em;">· Conflicto</span></h4>
+<p>"No va de cómo te ven los demás. Va de cómo te ves tú. Si tú no estás cómoda, eso también se refleja en tu relación."</p>
+<h4>Exp. Negativa Previa <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desconfianza</span></h4>
+<p>Estudio muy personalizado. A veces basta con reposicionar mejor o cambiar la técnica empleada.</p>
+<h4>Dudas Económicas <span style="font-weight:400;opacity:.65;font-size:.85em;">· Freno financiero</span></h4>
+<p>Valorar si se necesita realmente prótesis o solo elevación. Opciones sin ingreso hospitalario. Financiación desde X€/mes.</p>
+<hr />
+<h2 id="explantación-de-prótesis-mamarias"><span class="icon">🔄</span>Explantación de Prótesis Mamarias</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía Mamaria · En auge</p>
+<h3>La retirada de implantes: cada vez más demandada</h3>
+<p>La explantación es la cirugía para retirar las prótesis mamarias. Puede ir acompañada de una mastopexia (para corregir la caída de la piel), un cambio de implantes o realizarse de forma simple. Es una cirugía en claro auge, impulsada por mujeres que priorizan su bienestar y salud sobre la estética.</p>
+<h4>Motivos más frecuentes · Argumentario</h4>
+<ul>
+<li>Contractura capsular (encapsulamiento de la prótesis)</li>
+<li>Cambio de gustos o estilo de vida — ya no desean tener prótesis</li>
+<li>Envejecimiento de los implantes (se recomienda revisar cada 10–15 años)</li>
+<li>Síndrome ASIA o malestar general atribuido a los implantes</li>
+<li>"Tu cuerpo cambia y tus prioridades también. Es completamente válido querer volver a tu cuerpo natural"</li>
+</ul>
+<h4>Qué ofrecer con la explantación</h4>
+<ol>
+<li>Valoración de la piel post-implantes · ¿Necesita mastopexia?</li>
+<li>Cambio por implantes nuevos si desea mantener volumen</li>
+<li>Mastopexia simultánea para recolocar la piel</li>
+<li>Tratamientos postoperatorios: radiofrecuencia, hilos tensores</li>
+<li>Recuperación: similar al aumento de pecho · 2–3 semanas</li>
+</ol>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;A veces lo que un día quisiste ya no es lo que quieres ahora, y eso es completamente válido. No es un paso atrás, es volver a sentirte tú.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Oportunidad de venta combinada</h4>
+<p>La explantación es la puerta de entrada a una conversación más amplia. Muchas pacientes aprovechan para hacer una mastopexia simultánea, cambiar a implantes más pequeños, o iniciar tratamientos estéticos para recuperar la firmeza de la piel. Es una consulta con alto potencial de propuesta integral.</p>
+<h4>Role play · Miedo a quedar caída</h4>
+<p><em>Apertura de la paciente:</em> "Llevo años con las prótesis y ahora quiero quitármelas, pero me da miedo verme muy caída o que se note demasiado el cambio."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Es de las dudas más habituales, y se puede planificar justo para evitar eso. La doctora valora en la consulta cómo está tu piel: si necesita sujeción, se hace una mastopexia en la misma cirugía para que la retirada quede firme, no caída. No tienes que elegir entre quitarte las prótesis o verte bien, se puede tener las dos cosas."</p></div></div>
+<hr />
+<h2 id="blefaroplastia"><span class="icon">👁</span>Blefaroplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Párpados</p>
+<h3>¿Qué es?</h3>
+<p>Cirugía ambulatoria para corregir exceso de piel, grasa o flacidez en párpados superiores, inferiores o ambos. Técnica transconjuntival disponible (sin cicatriz externa). Anestesia local + sedación. Duración 40 min–1,5 h. Resultado: mirada más abierta, descansada y luminosa.</p>
+<h4>Recuperación</h4>
+<ol>
+<li>Días 1–3: hinchazón y moratones, compresas frías 15 min</li>
+<li>Días 4–7: retirada de puntos, inflamación baja</li>
+<li>Días 7–14: vida normal, maquillaje posible</li>
+<li>Día 15+: mirada abierta y despejada</li>
+<li>1–1,5 meses: resultado final natural</li>
+</ol>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;¿Sabes esa cara de cansada que tienes aunque hayas dormido bien? Es porque el párpado ha ido cayendo poco a poco. No te cambia la mirada, la despierta.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Cuidados Postoperatorios Clave</h4>
+<p>Compresas frías 24–48 h · Cabeza elevada 1–2 semanas · Solución salina + pomada oftálmica 7 días · Sin lentillas 2 semanas · Sin cosméticos 10–14 días · Sin esfuerzos 1–2 semanas · Protección solar SPF 50 hasta 1 año · Masajes suaves desde semana 1–2 (con autorización)</p>
+<h3>10 Perfiles · Role Plays y Claves</h3>
+<h4>Perfil 1 · No se reconoce, cara de cansada</h4>
+<p><em>Apertura de la paciente:</em> "Me miro al espejo y no me reconozco. Siento que siempre parezco cansada, triste… y no es cómo me siento por dentro."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Eso tiene mucho peso emocional. Porque lo que el rostro transmite afecta a cómo los demás te ven y también a cómo tú misma te relacionas. ¿Desde cuándo sientes que esto te está afectando?</p></div></div>
+<div class="rp-row bubble-p"><div class="rp-bubble"><p class="rp-text">Desde hace un par de años. Me ha caído el párpado, tengo bolsas… hasta en las fotos me veo apagada.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Y es completamente entendible. La blefaroplastia no busca que cambies tu rostro, sino que recuperes tu expresión real. Que tu cara esté en sintonía con tu energía interior. Es una intervención ambulatoria, anestesia local con sedación, 45–90 min. La gente te dice "qué bien te veo", pero no saben qué ha cambiado.</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">Este paso no es solo estético. Es liberarte de una expresión que no te representa. ¿Puedo agendarte valoración con el cirujano?</p></div></div>
+<h4>Impaciente <span style="font-weight:400;opacity:.65;font-size:.85em;">· Mínima baja</span></h4>
+<p>Ambulatoria. A casa el mismo día. Con gafas y frío se lleva bien. Día 7 vida casi normal. En 10–14 días maquillaje. "No se nota que te has operado, solo que te ves mejor."</p>
+<h4>Convencida <span style="font-weight:400;opacity:.65;font-size:.85em;">· Necesita agilidad</span></h4>
+<p>Organizar valoración esta semana. Definir si superior, inferior o ambos. Adelantar rango de precios si pide. Cierre profesional y ágil.</p>
+<h4>Económica <span style="font-weight:400;opacity:.65;font-size:.85em;">· Freno financiero</span></h4>
+<p>Una de las cirugías más accesibles y con mejor relación cambio-precio. Financiación hasta 24–36 meses. Si solo necesita párpado superior, el coste se reduce.</p>
+<h4>Pareja en Contra <span style="font-weight:400;opacity:.65;font-size:.85em;">· Conflicto</span></h4>
+<p>"¿Y tú qué sientes al mirarte en el espejo?" Decisión legítima y personal. No se trata de cambiar la cara, sino de recuperar la esencia.</p>
+<h4>Miedo a la Cirugía <span style="font-weight:400;opacity:.65;font-size:.85em;">· Anestesia local</span></h4>
+<p>No es anestesia general. Estás consciente pero relajada, proceso muy corto. Postoperatorio muy llevadero sin dolor. "Seguirás siendo tú, pero descansada y luminosa."</p>
+<h4>Exp. Negativa Previa <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desconfianza</span></h4>
+<p>Seguimiento personalizado, control postoperatorio y equipo especializado en estética facial. Acompañamiento desde el primer día.</p>
+<h4>Autoestima Baja <span style="font-weight:400;opacity:.65;font-size:.85em;">· Dolor psicológico</span></h4>
+<p>"No se trata solo de estética. Se trata de mirarte sin dolor ni rechazo." Recuperar naturalidad sin que se note lo que has hecho.</p>
+<h4>Muy Informada <span style="font-weight:400;opacity:.65;font-size:.85em;">· Técnica / Exigente</span></h4>
+<p>Incisión clásica o transconjuntival según el tipo de bolsa. 1.500+ cirugías faciales del cirujano. Controles 3–7–14 días, luego mensuales. Seguimiento telefónico 24 h primeros días.</p>
+<h4>Económica Pura <span style="font-weight:400;opacity:.65;font-size:.85em;">· Solo precio</span></h4>
+<p>Informar precio según párpado (superior/inferior/ambos). Qué incluye. Financiación hasta 24 meses. Si abre puerta emocional, adaptar el tono.</p>
+<hr />
+<h2 id="rinoplastia"><span class="icon">👃</span>Rinoplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía Nasal</p>
+<h3>Técnicas Disponibles</h3>
+<p><strong>Ultrasónica:</strong> más precisión, menos inflamación, recuperación más llevadera. <strong>Abierta:</strong> mayor visibilidad para casos complejos o secundarias. <strong>Cerrada:</strong> conservadora, para correcciones estéticas externas. Sin ingreso hospitalario.</p>
+<h4>Preguntas Exploratorias</h4>
+<ul>
+<li>¿Qué te gustaría mejorar exactamente: caballete, punta, perfil?</li>
+<li>¿Hay problema funcional (respiración)?</li>
+<li>¿Es primera rinoplastia o secundaria?</li>
+<li>¿Tienes alguna fecha o evento en mente?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Piensa en esos pequeños cambios de peinado que te cambian toda la cara sin que nadie sepa decir qué es distinto. Aquí pasa algo parecido, pero con la nariz: ajustes pequeños, diferencia grande.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desde adolescente</span></h4>
+<p>Validar el impacto emocional. Ultrasónica cerrada o abierta según caso. "¿Te imaginas sentirte libre en las fotos?"</p>
+<h4>Muy Informada <span style="font-weight:400;opacity:.65;font-size:.85em;">· Técnica / Exigente</span></h4>
+<p>Diferenciar estructural vs. preservadora. Combinación estética + funcional si hay problema respiratorio. Derivar al cirujano con solvencia.</p>
+<h4>Insegura <span style="font-weight:400;opacity:.65;font-size:.85em;">· Miedo al resultado</span></h4>
+<p>No buscamos cambiarte, sino armonizar. Técnica cerrada ultrasónica muy conservadora. Cirujano trabaja con proporciones naturales y simulaciones previas.</p>
+<h4>Decidida <span style="font-weight:400;opacity:.65;font-size:.85em;">· Directa</span></h4>
+<p>Cerrada ultrasónica si no hay que tocar estructuras internas. Definir fecha en consulta médica. Cierre directo.</p>
+<h4>Económica <span style="font-weight:400;opacity:.65;font-size:.85em;">· Freno financiero</span></h4>
+<p>Financiación sin intereses hasta 12–18 meses. "El valor no es solo estético, es cómo vas a sentirte cada día."</p>
+<h4>Miedo a la Operación <span style="font-weight:400;opacity:.65;font-size:.85em;">· Ansiedad</span></h4>
+<p>No requiere ingreso. Anestesistas expertos. Técnica ultrasónica menos invasiva. "Tu miedo es válido, aquí estamos para que te sientas cuidada."</p>
+<h4>Exp. Negativa Previa <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desconfianza · Secundaria</span></h4>
+<p>Rinoplastia secundaria más compleja. Técnica abierta estructural puede corregir forma + función. Cirujano con experiencia específica.</p>
+<hr />
+<h2 id="lip-lift"><span class="icon">💋</span>Lip Lift</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Elevación Labio Superior</p>
+<h3>¿Qué es?</h3>
+<p>Acorta el filtrum (nariz–labio superior). Eleva el labio, aumenta el bermellón visible. Mejora proporción sin rellenos. Anestesia local (± sedación). 30–45 min. Sin ingreso. Cicatriz discreta bajo la nariz. Reincorporación 4–7 días. Resultado permanente.</p>
+<h4>Indicaciones</h4>
+<ul>
+<li>Filtrum &gt; 13–15 mm</li>
+<li>Labio plano o caído</li>
+<li>No se ven dientes al sonreír</li>
+<li>Resultados artificiales con rellenos previos</li>
+<li>Rejuvenecimiento facial sin lifting completo</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Es un cambio tan sutil que nadie va a saber decir qué te has hecho. Solo van a notar que sonríes más abierta.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"Muchas mujeres me dicen que recuperan esa expresión abierta y natural que tenían antes."</p>
+<h4>Insegura</h4>
+<p>No cambia tu expresión, solo mejora la proporción. "No se nota que te has hecho algo, simplemente te ves más fresca."</p>
+<h4>Miedo al Postop.</h4>
+<p>Uno de los postoperatorios más llevaderos. Posible inflamación leve. La mayoría se maquilla a la semana.</p>
+<h4>Económica</h4>
+<p>Más accesible que otras cirugías. Sin anestesia general ni ingreso. Resultado permanente: no volver cada año como con rellenos.</p>
+<h4>Exp. Negativa (Rellenos)</h4>
+<p>No depende de materiales externos. Trabaja con la anatomía. Puede corregir errores de rellenos previos.</p>
+<h4>Pareja en Contra</h4>
+<p>"Muchas parejas dicen: 'No sé qué te has hecho, pero te veo bien'. Y eso es justo lo que buscamos."</p>
+<div class="quote-card"><div class="quote-label">Cierre</div><p class="quote-text">&ldquo;Es una cirugía menor con un resultado muy potente. No se nota que te has operado, pero sí te ves más joven, más armónica, más viva. ¿Agendamos una valoración médica?&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="lifting-de-cuello"><span class="icon">🦢</span>Lifting de Cuello</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cervicoplastia / Platismaplastia</p>
+<h3>Técnica</h3>
+<p>Actúa sobre músculo platisma (tensión), piel flácida (reposición) y grasa submentoniana (lipoaspiración). Incisión detrás de las orejas y bajo el mentón. Anestesia general o sedación. 1,5–2,5 h. Ambulatorio o 1 noche. Resultados duraderos hasta 10 años.</p>
+<h4>Exploración Emocional</h4>
+<ul>
+<li>¿Qué te molesta al verte de perfil o en fotos?</li>
+<li>¿Desde cuándo sientes que tu cuello ha perdido firmeza?</li>
+<li>¿Hay algo que hoy evitas hacer o usar por cómo te ves?</li>
+<li>¿Qué sentirías con el cuello más firme y definido?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;El cuello es de las primeras zonas que se cansa con los años, aunque cuides el resto de la cara. Aquí simplemente le devolvemos la firmeza que ha ido perdiendo poco a poco.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"El cuello es la zona que más rápido delata el tiempo. Los resultados son sutiles pero impactantes. Te devuelve la seguridad que tenías."</p>
+<h4>Miedo al Postop.</h4>
+<p>Cirugía bastante llevadera. Lo más incómodo es el vendaje inicial. En pocos días vida casi normal. Resultado progresivo y muy natural.</p>
+<h4>Muy Informada</h4>
+<p>Platismaplastia vs. lifting tradicional. El cirujano decide según laxitud. Posible combinación con lipo, mentón o lifting facial.</p>
+<h4>Económica</h4>
+<p>Muy buena relación coste-beneficio porque el resultado dura muchos años. Opciones de financiación cómodas.</p>
+<h4>Decidida</h4>
+<p>Valorar combinación con lipo o retoque de mentón. Agendar sin demora.</p>
+<h4>Pareja en Contra</h4>
+<p>"Nadie sabrá exactamente qué te has hecho, solo que te ves mejor." Decisión personal.</p>
+<hr />
+<h2 id="lifting-facial"><span class="icon">✨</span>Lifting Facial</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Rejuvenecimiento Quirúrgico</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Indicación</th>
+<th>Recuperación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lifting Completo</td>
+<td>50–55+ años, flacidez moderada-avanzada</td>
+<td>3–4 semanas</td>
+</tr>
+<tr>
+<td>Mini Lifting</td>
+<td>40–50 años, tercio inferior o medio</td>
+<td>7–10 días</td>
+</tr>
+<tr>
+<td>Lifting Cervical</td>
+<td>Papada sin necesidad de tocar el rostro</td>
+<td>1–2 semanas</td>
+</tr>
+<tr>
+<td>Lifting Tercio Medio</td>
+<td>Mejillas caídas, surcos nasogenianos</td>
+<td>1–2 semanas</td>
+</tr>
+<tr>
+<td>Lifting Endoscópico</td>
+<td>Incisiones mínimas, cejas o pómulos</td>
+<td>5–7 días</td>
+</tr>
+</tbody>
+</table>
+<h3>Mensaje Central</h3>
+<p>"El lifting no se trata de cambiar tu cara, sino de reposicionar lo que ya era tuyo. Es devolver al rostro su estructura original, sin artificialidad. No cambia: restaura."</p>
+<h4>Insegura</h4>
+<p>Hoy existen técnicas mucho más suaves como el mini lifting. No tomas ninguna decisión sola. Sin presión.</p>
+<h4>Impaciente</h4>
+<p>Mini lifting: 7–10 días recuperación. Lifting completo: 3–4 semanas. Coordinar fechas con margen para evento.</p>
+<h4>Muy Informada</h4>
+<p>Puede combinar mini lifting con hilos o lipofilling para potenciar sin hacer lifting completo.</p>
+<h4>Emocional</h4>
+<p>"Cuando nos miramos y nuestra cara ya no nos representa, algo dentro empieza a doler… Esto va de reconciliarte con tu reflejo."</p>
+<h4>Económica</h4>
+<p>Mini lifting más accesible, resultado espectacular muchas veces. Pago fraccionado posible.</p>
+<h4>Exp. Negativa</h4>
+<p>Mini lifting o lifting de cuello puede corregir o suavizar lo que no gustó. Escuchar primero qué ocurrió.</p>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;No te preocupes, no es una cara nueva. Es la tuya, la de antes, cuando todo estaba un poco más en su sitio.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="mentoplastia"><span class="icon">🦷</span>Mentoplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía del Mentón</p>
+<h3>Opciones</h3>
+<p>Prótesis de mentón (aumenta proyección) · Avance óseo (modifica el hueso) · Liposucción de papada complementaria · Relleno temporal con AH (prueba antes de cirugía). Ambulatorio. 45 min–1,5 h. Reincorporación 3–5 días.</p>
+<h4>Preguntas Clave</h4>
+<ul>
+<li>¿Te molesta más de frente o de perfil?</li>
+<li>¿Sientes que el rostro es corto o redondo por el mentón?</li>
+<li>¿Te gustaría proyectar más el contorno mandibular?</li>
+<li>¿Buscas algo definitivo o temporal?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Es un cambio pequeño en un punto muy concreto, pero cambia cómo se ve toda la cara, un poco como cuando te cambias de gafas y de repente todo el rostro se ve distinto.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Insegura</h4>
+<p>"El mentón parece un detalle pequeño, pero cambia completamente el equilibrio de la cara y cómo te sientes al mirarte."</p>
+<h4>Impaciente</h4>
+<p>Con AH resultado al instante. Con cirugía, en una semana ya se nota. Una de las recuperaciones más rápidas.</p>
+<h4>Muy Informada</h4>
+<p>Tres técnicas: prótesis, avance óseo, relleno. Cada una con indicaciones específicas. La valoración decide.</p>
+<h4>Económica</h4>
+<p>Precio más asequible que otras cirugías. Opción de relleno temporal para probar. Financiación disponible.</p>
+<hr />
+<h2 id="bichectomía"><span class="icon">💆</span>Bichectomía</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Afinamiento Facial</p>
+<h3>¿Qué es?</h3>
+<p>Extracción de las bolas de Bichat (cúmulos de grasa entre pómulo y mandíbula). Afina el rostro, resalta pómulos y define contorno facial. Anestesia local ± sedación. 30–45 min. Sin ingreso. Cicatrices internas (intraorales). Resultados visibles a partir de 3–4 semanas.</p>
+<h4>Importante Saber</h4>
+<ul>
+<li>No todos los rostros son candidatos — valoración médica esencial</li>
+<li>En rostros muy finos puede envejecer, no rejuvenecer</li>
+<li>Resultado definitivo, no hay retoque</li>
+<li>Similar a extracción dental en molestia</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Simplemente se retira grasa que ya no cumple ninguna función, como esos mofletes que de bebés eran necesarios y de adultos ya no.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"El rostro es nuestra carta de presentación. Este cambio es pequeño en lo quirúrgico pero enorme en cómo te ves."</p>
+<h4>Muy Informada</h4>
+<p>Las bolas de Bichat solo tienen función en la infancia. Técnica intraoral, sin cicatriz visible. Mejora proyección del pómulo y la mandíbula.</p>
+<h4>Impaciente</h4>
+<p>Resultados desde el mes, se afina hasta el 3º mes. Con 4 semanas de margen antes de una fecha especial.</p>
+<h4>Económica</h4>
+<p>Más accesible que otras. Resultado definitivo, sin retoques futuros como con rellenos. Posible financiación.</p>
+<hr />
+<h2 id="otoplastia"><span class="icon">👂</span>Otoplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Corrección de Orejas</p>
+<h3>¿Qué es?</h3>
+<p>Corrige forma, posición o tamaño de orejas prominentes. 1–1,5 h. Anestesia local o sedación. Ambulatoria. Vendaje 48–72 h, luego cinta elástica nocturna. Reincorporación 3–5 días. Cicatriz detrás de la oreja. Resultados permanentes.</p>
+<h4>Preguntas</h4>
+<ul>
+<li>¿Te incomoda la forma, tamaño o separación?</li>
+<li>¿Te acompleja recogerte el pelo?</li>
+<li>¿Desde cuándo te lo planteas?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Suele dar más miedo pensarlo que hacerlo, un poco como ir al dentista: el antes asusta más que el después.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"Cambia la manera de mirarte, de posar, incluso de reír sin pensar. Muy transformadora emocionalmente aunque sencilla técnicamente."</p>
+<h4>Impaciente</h4>
+<p>Una de las cirugías con resultados más inmediatos. En una semana vida normal. El cambio se ve desde el primer día.</p>
+<h4>Económica</h4>
+<p>Coste más accesible, definitiva. También se puede financiar cómodamente.</p>
+<h4>Muy Informada</h4>
+<p>Técnicas: remodelar cartílago o doblar y fijar con suturas internas. El cirujano elige según el caso para resultado natural y simétrico.</p>
+<hr />
+<h2 id="liposucción"><span class="icon">🫧</span>Liposucción</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Técnica Clásica</p>
+<h3>¿Qué es?</h3>
+<p>Técnica de eliminación de grasa localizada mediante cánulas finas y succión controlada. Se centra en reducir volumen y mejorar el contorno corporal, sin buscar la definición muscular de la HD. Zonas más habituales: abdomen, flancos, cartucheras, papada, brazos, rodillas. Anestesia general o local + sedación según zona y volumen. 1–2 h. Faja compresiva 4–6 semanas.</p>
+<h4>¿Para Quién?</h4>
+<ul>
+<li>Grasa localizada resistente a dieta y ejercicio, sin necesidad de definición muscular</li>
+<li>Paciente que busca resultado natural y discreto, no marcado</li>
+<li>Primer paso habitual antes de otras cirugías (abdominoplastia, brazos, muslos)</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;No es una operación para adelgazar, es para esculpir esas zonas concretas que no responden ni a dieta ni a deporte.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Decidida</h4>
+<p>"Perfecto, es justo la técnica pensada para eso: reduce volumen en la zona exacta y mejora el contorno, sin necesidad de nada más agresivo."</p>
+<h4>Muy Informada</h4>
+<p>Se trabaja con cánulas de pocos milímetros y movimiento controlado que respeta vasos y nervios. No sustituye la pérdida de peso: remodela el contorno donde la grasa no responde.</p>
+<h4>Exp. Negativa</h4>
+<p>"Cuidamos mucho la técnica y el postoperatorio (faja, drenaje linfático) para que el resultado quede uniforme, sin irregularidades."</p>
+<h4>Económica</h4>
+<p>Es la opción más accesible dentro de las liposucciones. Ideal para empezar por una zona y ampliar más adelante si se desea. Financiación disponible.</p>
+<hr />
+<h2 id="liposucción-hd"><span class="icon">💪</span>Liposucción HD</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Alta Definición</p>
+<h3>¿Qué es?</h3>
+<p>Técnica avanzada que no solo elimina grasa localizada sino que resalta y define músculos del abdomen, espalda, cintura, brazos. Puede combinarse con lipofilling en glúteos o pectorales. Tecnología VASER o PAL. Faja y drenajes postoperatorios. Resultados visibles desde el principio, mejoran hasta el 3º mes.</p>
+<h4>¿Para Quién?</h4>
+<ul>
+<li>Buen tono muscular con grasa localizada que oculta la definición</li>
+<li>Mujeres: figura atlética, cintura estrecha, abdomen plano</li>
+<li>Hombres: marcar abdomen, pectorales, brazos</li>
+<li>Resultado deportivamente estético más allá de perder volumen</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;No es solo quitar grasa, es dejar ver el músculo que ya tienes debajo, como cuando por fin se nota el trabajo que llevas haciendo en el gimnasio.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Decidida</h4>
+<p>"Cuanto más claro lo tienes, más preciso puede ser el diseño. Es como esculpir el cuerpo resaltando tus músculos naturales."</p>
+<h4>Muy Informada</h4>
+<p>Tecnología VASER o PAL: separa la grasa sin dañar tejidos. Resultado más definido y seguro. Siempre por encima del músculo.</p>
+<h4>Exp. Negativa</h4>
+<p>"En lipo tradicional solo se quita volumen. Esta trabaja tridimensionalmente: no solo elimina, perfila y resalta."</p>
+<h4>Económica</h4>
+<p>Más precisa que la lipo tradicional, por eso cuesta más. Pero el cambio es más impactante y duradero. Financiación disponible.</p>
+<hr />
+<h2 id="lipoescultura-tradicional"><span class="icon">🌀</span>Lipoescultura Tradicional</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Redefinición del Contorno</p>
+<h3>Diferencia clave</h3>
+<p>A diferencia de la liposucción clásica, la lipoescultura busca un resultado estético y natural adaptándose a la anatomía. No sustituye pérdida de peso, pero mejora la forma corporal. Zonas: abdomen, flancos, caderas, cartucheras, muslos, rodillas, brazos, papada, espalda. 1,5–3 h. Faja y drenajes.</p>
+<h4>Insegura</h4>
+<p>"No es cambiar quién eres, es alinearte contigo. Tu cuerpo reflejando cómo te ves por dentro."</p>
+<h4>Miedo al Postop.</h4>
+<p>Molestias como agujetas fuertes 4–5 días. Controlable con medicación. Faja y masajes son clave. Muy satisfactorio.</p>
+<h4>Económica</h4>
+<p>Trabajar por zonas. Empezar con abdomen y flancos (gran impacto visual). Financiación sin intereses.</p>
+<h4>Exp. Negativa</h4>
+<p>"Aquí nos centramos no solo en quitar grasa, sino en armonizar el cuerpo completo. Muchos pacientes mejoran resultados anteriores."</p>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Hay zonas que no bajan ni a dieta ni a deporte, y es por genética, no por falta de esfuerzo tuyo. Aquí se trabaja justo en esas zonas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="abdominoplastia"><span class="icon">🧵</span>Abdominoplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Contorno Abdominal</p>
+<table>
+<thead>
+<tr>
+<th>Técnica</th>
+<th>Indicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abdominoplastia clásica</td>
+<td>Resección piel+grasa infraumbilical + reparación muscular</td>
+</tr>
+<tr>
+<td>Miniabdominoplastia</td>
+<td>Solo parte baja del abdomen, sin reubicar ombligo</td>
+</tr>
+<tr>
+<td>Con lipoescultura</td>
+<td>Combina liposucción para resultado más armónico</td>
+</tr>
+<tr>
+<td>Flor de lis</td>
+<td>Pérdida masiva de peso</td>
+</tr>
+</tbody>
+</table>
+<h4>Post-Operatorio Esencial — Prevención de Seroma y Fibrosis</h4>
+<p>Drenaje activo 7–21 días · Faja compresiva 24 h durante 6 semanas · Drenaje linfático manual desde día 2–3 (5–10 sesiones) · Masajes cicatrizales + gel silicona · Evitar sol directo 1 año · Controles a 1/7/14 días, 1/3/6 meses</p>
+<h4>Emocional / Insegura</h4>
+<p>"Esto no solo busca estética: busca devolverte seguridad en tu cuerpo." Los drenajes y faja son temporales; los cuidados garantizan resultado firme y natural.</p>
+<h4>Impaciente</h4>
+<p>Vuelves con faja y caminando desde el día 1. Trabajo no físico: 2–4 semanas. Ejercicio: 6–8 semanas. "Con ese plan puedes verte mejor sin estancar tu vida."</p>
+<h4>Miedo a la Cirugía</h4>
+<p>Anestesia controlada, equipo completo. Post no duele: molestias controladas. Drenajes y faja son incómodos pero temporales.</p>
+<h4>Exigente / Informada</h4>
+<p>Faja médica 6 semanas, drenajes manuales 7–21 días, 5–10 sesiones drenaje linfático, masaje cicatricial, gel silicona, protección solar, controles protocolizados.</p>
+<h4>Económica</h4>
+<p>Precio cerrado desde X€ incluye hospital, anestesia, drenaje, faja, 5 sesiones post, controles. Opciones de pago 6–36 meses.</p>
+<h4>Pareja en Contra</h4>
+<p>"Tu cuerpo, tu decisión. No lo haces por agradarle, lo haces por sentirte tú. Aquí caminamos contigo, paso a paso."</p>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Después de un embarazo o de adelgazar mucho, la piel se queda como una goma que ha perdido elasticidad. Aquí retiramos lo que sobra y volvemos a dejarla tensa.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="body-lift"><span class="icon">✂</span>Body Lift</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Lifting Corporal Integral</p>
+<h4>Lower Body Lift</h4>
+<ul>
+<li>Abdomen, muslos, glúteos y flancos</li>
+<li>El más habitual</li>
+</ul>
+<h4>Upper Body Lift</h4>
+<ul>
+<li>Espalda alta, brazos, lateral del tórax</li>
+</ul>
+<h4>Total Body Lift</h4>
+<ul>
+<li>Upper + lower</li>
+<li>En 1 o 2 tiempos quirúrgicos</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Después de perder mucho peso, el cuerpo cambia por dentro pero se queda con la piel de antes por fuera. Esto es ajustar ese envoltorio a tu talla nueva.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Datos Técnicos</h4>
+<p>Anestesia general · 4–6 horas · 1–2 noches ingreso · Faja compresiva varias semanas · Reincorporación 3–4 semanas · Cicatrices amplias pero planificadas</p>
+<h4>Emocional (Pérdida Peso)</h4>
+<p>"Has hecho un trabajo increíble. Esta cirugía es el paso final para cerrar ese proceso. No es vanidad: es coherencia con lo que has logrado."</p>
+<h4>Miedo al Postop.</h4>
+<p>Cirugía importante, el postoperatorio exige paciencia. Se lleva bien con los cuidados indicados. Desde el principio se nota el cambio. Vale la pena totalmente.</p>
+<h4>Cicatrices</h4>
+<p>Las cicatrices se planifican para disimularse al máximo. Para muchas personas el beneficio de vivir sin piel colgante supera ampliamente la línea de cicatriz.</p>
+<h4>Económica</h4>
+<p>Inversión importante. Financiación muy flexible. Puede plantearse en fases. Vamos a encontrar una solución viable.</p>
+<div class="quote-card"><div class="quote-label">Cierre</div><p class="quote-text">&ldquo;Esta cirugía no es solo estética: es profundamente simbólica. Cierra una etapa y abre otra. Es como quitarse un peso de encima —literal y emocionalmente— y reconocerte de verdad.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="glúteos-con-grasa-propia"><span class="icon">🍑</span>Glúteos con Grasa Propia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">BBL · Lipoescultura + Lipofilling</p>
+<h3>¿Qué es?</h3>
+<p>Extracción de grasa propia (abdomen, flancos, muslos), purificación e inyección estratégica en glúteos. Sin implantes. Resultado natural. Reestructuración del contorno corporal (efecto reloj de arena). Ambulatoria. 2–3 h. Vida normal 7–10 días. 70% de la grasa injertada sobrevive.</p>
+<h4>Cuidados Post</h4>
+<ul>
+<li>Faja compresiva en zona de liposucción</li>
+<li>Cojín especial para sentarse (evitar presión directa)</li>
+<li>Vida normal 7–10 días · Ejercicio desde el mes</li>
+<li>Grasa inyectada sobre el músculo, nunca dentro</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es tu propia grasa, solo que colocada donde tu cuerpo la necesita. No metemos nada que no sea tuyo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"Muchas pacientes me dicen que por primera vez se sienten cómodas en bañador. Es un cambio que empieza por fuera pero se nota por dentro."</p>
+<h4>Muy Informada</h4>
+<p>Técnicas seguras, grasa inyectada por encima del músculo. Zonas de extracción seleccionadas para esculpir la figura. Protocolos médicos actualizados.</p>
+<h4>Miedo al Postop.</h4>
+<p>No doloroso pero requiere cuidados: faja y evitar sentarse directamente. Al ser grasa propia el cuerpo lo tolera muy bien. En una semana vida casi normal.</p>
+<h4>Económica</h4>
+<p>Cirugía combinada (remodelación corporal + glúteos). Rentable porque tratas dos zonas a la vez. Financiación en cuotas mensuales sin intereses.</p>
+<hr />
+<h2 id="lifting-de-muslos"><span class="icon">🦵</span>Lifting de Muslos</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cruroplastia</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Indicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lifting interno (tradicional)</td>
+<td>Incisión en ingle. Casos con mucha piel colgante</td>
+</tr>
+<tr>
+<td>Lifting vertical</td>
+<td>Exceso severo a lo largo de toda la pierna</td>
+</tr>
+<tr>
+<td>Mini lifting inguinal</td>
+<td>Flacidez leve localizada · Cicatriz mínima</td>
+</tr>
+<tr>
+<td>Con liposucción</td>
+<td>Flacidez + acumulación de grasa</td>
+</tr>
+</tbody>
+</table>
+<h4>Emocional</h4>
+<p>"Muchas mujeres, tras perder peso, sienten que hicieron todo lo posible pero hay zonas que no responden sin cirugía. Esto es cerrar un ciclo."</p>
+<h4>Impaciente</h4>
+<p>A las 2 semanas vida moderada. Mes: casi normalidad. Resultado final desde el 3º mes. Planificable para verano.</p>
+<h4>Pareja en Contra</h4>
+<p>"A veces la pareja no entiende lo que supone vivir con un complejo que condiciona el día a día. Es sentirte a gusto con tu cuerpo, sin esconderte."</p>
+<h4>Económica</h4>
+<p>Valorar si basta un mini lifting (más económico, recuperación más corta). Financiación accesible disponible.</p>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es la misma piel que se queda floja en el abdomen tras adelgazar, pero en la parte interna de la pierna. Se retira lo que sobra y se deja firme otra vez.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="lifting-de-brazos"><span class="icon">🙌</span>Lifting de Brazos</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Braquioplastia</p>
+<h3>Tipos</h3>
+<p><strong>Completa:</strong> axila hasta codo. Casos severos o post-pérdida de peso. <strong>Mini / Axilar:</strong> leve-moderada, cicatriz discreta. <strong>Con liposucción:</strong> para mejorar resultados y evitar irregularidades. Postoperatorio: sensación de tirantez (no dolor), controlable con medicación. 10–15 días recuperación inicial.</p>
+<h4>Preguntas Exploratorias</h4>
+<ul>
+<li>¿La incomodidad es estética o funcional (roce, sudor)?</li>
+<li>¿Has bajado mucho de peso recientemente?</li>
+<li>¿Te limita al vestirte con ropa sin mangas?</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;¿Sabes cuando llevas manga larga en pleno verano para no enseñar los brazos? Esto es justo lo contrario: poder ponerte lo que te apetezca sin pensarlo dos veces.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Emocional</h4>
+<p>"Cuando una persona ha cambiado por dentro, quiere que su cuerpo refleje esa transformación. Esto va de reconocer tu esfuerzo."</p>
+<h4>Impaciente</h4>
+<p>Recuperación 10–15 días. Coordinar para llegar a fecha especial. Cicatrices en cara interna del brazo, difíciles de ver.</p>
+<h4>Económica</h4>
+<p>Mini braquioplastia más económica para casos leves-moderados. Financiación sin intereses o cuotas muy flexibles.</p>
+<h4>Pareja en Contra</h4>
+<p>"No es por vanidad. Es por autoestima, por sentirte a gusto con tu cuerpo y no tener que esconder tus brazos."</p>
+<div class="quote-card"><div class="quote-label">Cierre</div><p class="quote-text">&ldquo;El lifting de brazos cambia la forma en que una persona se mueve, se viste y se mira. La sensación de libertad después de eliminar esa piel sobrante no tiene precio. ¿Agendamos valoración médica?&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="labioplastia"><span class="icon">🌸</span>Labioplastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía Íntima Femenina</p>
+<h3>¿Qué es?</h3>
+<p>Reduce, remodela o corrige labios menores y/o mayores. Motivos: estéticos, funcionales o psicológicos. Anestesia local o sedación. 30–60 min. Sin ingreso. Recuperación rápida: vida cotidiana casi normal a los 5–7 días. Resultados naturales y duraderos.</p>
+<h4>Indicaciones</h4>
+<ul>
+<li>Asimetría o hipertrofia de labios menores</li>
+<li>Molestias al hacer deporte, relaciones o ropa ajustada</li>
+<li>Inseguridad estética en la intimidad</li>
+<li>Cambios tras partos o por genética</li>
+</ul>
+<div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es mucho más habitual de lo que la gente piensa, simplemente no se habla de ello. Si te incomoda al vestir o hacer deporte, tiene solución, y es más sencilla de lo que imaginas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Insegura</h4>
+<p>"Es más común de lo que parece. Muchas mujeres sienten incomodidad con esa zona y no lo comentan. Lo importante es que si te está afectando, hay solución, y es más sencilla de lo que imaginas."</p>
+<h4>Emocional</h4>
+<p>"No es solo un cambio físico. Es recuperar seguridad en ti misma, sentirte bien en tu cuerpo sin vergüenzas ni complejos, incluso en la intimidad."</p>
+<h4>Muy Informada</h4>
+<p>Técnicas: resección en cuña o remodelado lineal. Según objetivo: reducir volumen, eliminar pigmentación o definir contorno. Cirujanas especializadas en ginecoestética.</p>
+<h4>Pareja en Contra</h4>
+<p>"Esto no se hace por otra persona. Se hace por ti. Es tu cuerpo, tu decisión, tu comodidad."</p>
+<h4>Impaciente</h4>
+<p>Ambulatoria. Resultado desde la primera semana. Aspecto final a partir del mes. Planificable sin interrumpir la rutina.</p>
+<h4>Económica</h4>
+<p>Precio varía según si es simple o con correcciones adicionales. Financiación sin intereses disponible.</p>
+<div class="quote-card"><div class="quote-label">Cierre Emocional</div><p class="quote-text">&ldquo;La labioplastia no solo mejora la estética íntima, sino también la confianza con una misma, la comodidad física y hasta las relaciones de pareja. Muchas mujeres salen aliviadas solo de hablarlo. ¿Te agendo una valoración con la especialista?&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<hr />
+<h2 id="implante-capilar-técnica-fue"><span class="icon">💇</span>Implante Capilar · Técnica FUE</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía Capilar</p>
+<h3>La solución definitiva para la alopecia</h3>
+<p>El injerto capilar FUE (Follicular Unit Extraction) extrae folículos pilosos uno a uno de zonas donantes — generalmente la nuca — y los reimplanta en las zonas con pérdida de cabello. Los cabellos trasplantados son permanentes porque provienen de zonas genéticamente resistentes a la alopecia. En Estetic Grup el tratamiento tiene un precio desde 1.990€.</p>
+<h4>Scripts clave de venta</h4>
+<ul>
+<li>"El cabello que trasplantamos es permanente — viene de una zona que nunca va a perder el pelo, aunque tengas tendencia a la alopecia"</li>
+<li>Resultado completamente natural — los cabellos crecen de forma progresiva</li>
+<li>Sin cicatriz visible — la técnica FUE deja marcas puntiformes imperceptibles</li>
+<li>Aplicable en hombres y mujeres con alopecia androgenética o zonas sin densidad</li>
+<li>También para cicatrices, cejas y barba</li>
+</ul>
+<h4>Proceso y recuperación</h4>
+<ol>
+<li>Intervención: 4–8 horas bajo anestesia local · Sin ingreso</li>
+<li>Días 1–10: costritas en zona receptora que caen solas</li>
+<li>1–3 meses: caída temporal del pelo trasplantado (normal)</li>
+<li>3–6 meses: crecimiento progresivo del nuevo cabello</li>
+<li>12 meses: resultado definitivo y completo</li>
+</ol>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;El pelo que se trasplanta viene de una zona que nunca se cae, así que donde se coloca, se queda para siempre.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Role play · Paciente con miedo a la caída temporal</h4>
+<p><em>Apertura de la paciente:</em> "He leído que el cabello trasplantado se cae al principio. Me preocupa."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Es completamente normal y es buena señal — significa que el folículo está entrando en su fase de descanso antes de empezar a crecer con fuerza. La raíz está en su sitio y perfectamente implantada. A partir del 3er mes empieza a crecer el cabello nuevo, y al año tienes el resultado definitivo. El pelo que trasplantamos no se va a caer más — es permanente."</p></div></div>
+<p><strong>Dato clave para el presupuesto:</strong> precio desde 1.990€ según nº de injertos necesarios (grado de alopecia) y zona a cubrir. Financiable hasta 24 meses sin intereses, igual que el resto de tratamientos de la clínica.</p>
+<hr />
+<h2 id="ginecomastia"><span class="icon">👨</span>Ginecomastia</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Cirugía Masculina</p>
+<h3>La cirugía más demandada por hombres · Pecho plano y masculino</h3>
+<p>La ginecomastia es el aumento anormal del tejido mamario en hombres — la sufren entre 4 y 6 de cada 10 varones. Puede deberse a tejido glandular, acumulación de grasa o ambas. La cirugía consigue un pecho plano, definido y masculino con cicatrices mínimas o imperceptibles.</p>
+<h4>Tipos y técnica</h4>
+<ul>
+<li><strong>Pseudoginecomastia (grasa):</strong> liposucción de pequeña cánula · Cicatriz de 2–3 mm imperceptible</li>
+<li><strong>Ginecomastia (tejido glandular):</strong> extirpación a través de pequeña incisión en areola</li>
+<li><strong>Mixta:</strong> combinación de ambas técnicas</li>
+<li>Anestesia local o sedación · Ambulatorio · Sin ingreso</li>
+</ul>
+<h4>Recuperación y resultados</h4>
+<ol>
+<li>Faja pectoral durante 3–4 semanas</li>
+<li>Vida cotidiana a los 2–3 días</li>
+<li>Ejercicio a partir del mes</li>
+<li>Resultados visibles desde la 3ª semana</li>
+<li>Resultado definitivo a los 6 meses · Cicatriz imperceptible</li>
+</ol>
+<div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Le pasa a muchos más hombres de los que te imaginas, y casi nadie lo cuenta. No es solo estética, es poder quitarte la camiseta en la playa sin pensarlo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<h4>Role play · Paciente masculino con complejo</h4>
+<p><em>Apertura del paciente:</em> "No me quito la camiseta en la playa desde hace años. Es algo que me afecta mucho pero no sé si es para tanto operarme por eso."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Es completamente para tanto. Si te afecta en tu día a día, en cómo te vistes, en lo que evitas hacer — eso tiene un impacto real en tu calidad de vida. La ginecomastia es la cirugía estética más frecuente en hombres, así que no estás solo. La intervención es ambulatoria, con anestesia local, dura una hora aproximadamente, y en 2–3 días ya haces vida normal. A partir del mes vas al gimnasio. El resultado es definitivo."</p></div></div>
+<hr />
+<h1>VENTAS Y ESTRATEGIA COMERCIAL</h1>
+<h2 id="venta-consultiva"><span class="icon">🎯</span>Venta Consultiva · Pain-Selling</h2>
+<h3>Método base para cirugía plástica y medicina estética</h3>
+<h4 id="la-decisión-de-compra-no-es-por-el-tratamiento-es-por-lo-que-ese-tratamiento-cura">La decisión de compra no es por el tratamiento, es por lo que ese tratamiento cura</h4>
+<p>No se trata de presionar, sino de hacer de espejo para que la paciente tome conciencia de su propia realidad. En servicios de alto impacto como la cirugía plástica y la medicina estética, casi nadie decide por el procedimiento en sí, sino por lo que ese procedimiento resuelve en su cabeza: una inseguridad, un miedo, una etapa que quiere cerrar. Tu papel deja de ser "vendedora" y pasa a ser consultora: primero preguntas y escuchas, después presentas la solución.</p>
+<h3 id="las-4-fases-del-método">Las 4 fases del método</h3>
+<ol>
+<li><strong>Diagnóstico racional</strong> — lo que la paciente cuenta en los primeros dos minutos ("quiero verme menos cansada"). Es la capa superficial; si ofreces solución aquí, compites por precio o características técnicas. Tienes que rascar la superficie.</li>
+<li><strong>Escucha profunda</strong> — mediante preguntas abiertas y silencios estratégicos, buscas el miedo, la inseguridad o la limitación que ese problema le genera en el día a día. Cuando la paciente verbaliza su miedo en voz alta, la venta ya está hecha en un 80%.</li>
+<li><strong>Puente hacia la solución</strong> — solo cuando la herida está clara presentas el tratamiento. No como "un procedimiento de X sesiones", sino como el vehículo que va a cerrar esa herida.</li>
+<li><strong>Beneficio emocional</strong> — cierras pintando el escenario del futuro. No vendes el proceso (que puede dar miedo o pereza), vendes el día después: cómo se va a sentir, qué va a recuperar (libertad, autoestima, tranquilidad).</li>
+</ol>
+<p><strong>Preguntas clave para la fase de escucha profunda:</strong>
+- "¿Desde cuándo te sientes así?"
+- "¿En qué momentos de tu día a día te afecta más esto?"
+- "Si no lo solucionas ahora, ¿cómo te imaginas de aquí a un año?"</p>
+<h3 id="3-reglas-de-oro-para-que-sea-ético-y-natural">3 reglas de oro para que sea ético y natural</h3>
+<ul>
+<li><strong>Efecto espejo (parafraseo):</strong> no inventes palabras. Si la paciente dice "me siento estancada", tú en tu solución debes usar la palabra "estancada". Sentirá que la entiendes mejor que nadie.</li>
+<li><strong>Tono bajo y pausado</strong> al tocar la herida emocional — genera un entorno de confidencialidad y seguridad, no interrogatorio.</li>
+<li><strong>Cero juicio:</strong> tu actitud debe ser de absoluta comprensión. Si la paciente siente que la juzgas por su inseguridad, se cierra en banda.</li>
+<li><strong>Silencio de 3 segundos</strong> tras la pregunta de la herida — no lo rellenes tú. Deja que su propia respuesta flote en el aire. Casi siempre, tras ese silencio, añade el dato más importante por su cuenta.</li>
+</ul>
+<h4 id="por-qué-funciona-y-por-qué-es-ético">Por qué funciona (y por qué es ético)</h4>
+<ul>
+<li><strong>Cero presión:</strong> no necesitas ser la típica vendedora agresiva. Tu mayor arma es la curiosidad genuina y las preguntas correctas — la paciente se vende a sí misma a medida que responde.</li>
+<li><strong>Genera una conexión brutal:</strong> la gente no suele confesar sus inseguridades a cualquiera. Si logras que se abra contigo, la confianza que se genera rompe cualquier objeción de precio.</li>
+<li><strong>Filtra el valor:</strong> cuando tocas el dolor real, el precio pasa a un segundo plano porque lo que la paciente está comprando es una solución a su sufrimiento, y eso no tiene una etiqueta de precio fácil de comparar.</li>
+</ul>
+<blockquote>
+<p>Para que la venta desde el dolor funcione y sea ética, la clave está en cambiar el chip: ya no eres vendedora, eres consultora — la "médico" de la situación comercial. Un médico no receta una pastilla nada más entrar por la puerta; primero hace preguntas, toca donde duele y, cuando la paciente dice "¡Ahí!", entonces da la solución.</p>
+</blockquote>
+<hr />
+<h3 id="un-mismo-método-dos-ritmos-distintos">Un mismo método, dos ritmos distintos</h3>
+<p>La estructura de las 4 fases es la misma, pero el guion y el ritmo cambian según si hablas de <strong>cirugía plástica</strong> (decisión lenta, con miedo físico al quirófano y a la anestesia de por medio) o de <strong>medicina estética</strong> (decisión mucho más ágil, motivada por mantenimiento o mejora puntual, sin el filtro del miedo quirúrgico). Aplicar el guion de cirugía a una paciente de bótox la ralentiza innecesariamente; aplicar el de medicina a una paciente de abdominoplastia se queda corto y genera dudas después.</p>
+<h4>🏥 Cirugía Plástica · Guion diferenciado</h4>
+<p><strong>Rasgo del proceso:</strong> decisión larga (semanas o meses), implica quirófano y anestesia, y suele arrastrar más de un miedo a la vez: al dolor, al resultado, a "qué dirán". No fuerces el cierre en la primera llamada.</p>
+<blockquote>
+<p><strong>Paciente:</strong> "Quiero información de la abdominoplastia, llevo tiempo dándole vueltas pero no me decido."</p>
+<p><strong>Fase 1-2 · Escarbar:</strong> "Cuéntame, ¿desde cuándo le das vueltas? Y en el día a día, ¿en qué momentos notas que más te afecta?"</p>
+<p><strong>Fase 3 · Herida:</strong> "Siendo sincera... más allá de lo físico, ¿qué es lo que realmente te frena? ¿Es el miedo a la cirugía en sí, o algo más?"</p>
+<p><strong>Paciente:</strong> "Me da pánico la anestesia, y también qué pasará si el resultado no es el que espero."</p>
+<p><strong>Fase 4 · Puente:</strong> "Te entiendo perfectamente, y es la duda más habitual en cirugía. Precisamente por ese miedo a la anestesia y al resultado, la Dra. [Nombre] hace una valoración presencial antes de nada, donde te explica técnica, riesgos reales y qué esperar, para que decidas con información y no con miedo."</p>
+<p><strong>Beneficio emocional:</strong> "No te comprometes a nada en esa primera visita, solo a salir con las dudas resueltas. Y cuando llegue el día, no vendes el proceso: vendes que en unos meses se mire al espejo tranquila, sin esa duda rondándole la cabeza. ¿Te reservo esa primera visita con la Dra. [Nombre] para que resuelva contigo lo de la anestesia y el resultado cara a cara?"</p>
+</blockquote>
+<h4>💉 Medicina Estética · Guion diferenciado</h4>
+<p><strong>Rasgo del proceso:</strong> decisión rápida, sin quirófano, muchas veces por mantenimiento o mejora puntual. El miedo no es físico, es más bien "que se note" o "verme artificial". Aquí el guion puede avanzar en una sola conversación.</p>
+<blockquote>
+<p><strong>Paciente:</strong> "Quería preguntar por el ácido hialurónico, me veo un poco apagada últimamente."</p>
+<p><strong>Fase 1-2 · Escarbar:</strong> "Y cuando dices apagada... ¿es algo que notas tú al mirarte, o también te lo han comentado? ¿En qué momentos te pesa más?"</p>
+<p><strong>Fase 3 · Herida:</strong> "Entiendo. Y aparte de lo estético, ¿qué es lo que más te incomoda de verte así? ¿Te resta seguridad en el día a día?"</p>
+<p><strong>Paciente:</strong> "La verdad es que sí, me veo mayor de lo que me siento."</p>
+<p><strong>Fase 4 · Puente:</strong> "Precisamente por eso que me cuentas, de verte mayor de lo que te sientes, este tratamiento lo que busca es devolver luz al rostro sin que se note nada, solo un 'algo tienes distinto'."</p>
+<p><strong>Beneficio emocional:</strong> "¿Te preparo cita con la doctora esta semana? Vas a salir con esa sensación de verte descansada y como tú misma, no con cara de haber pasado por quirófano."</p>
+</blockquote>
+<h4>Cuándo usar cada ritmo</h4>
+<ul>
+<li><strong>Cirugía →</strong> más fases de escucha, más silencios, cierre en varias visitas. El objetivo de la primera llamada no es cerrar cirugía, es cerrar la <em>visita con la Dra.</em></li>
+<li><strong>Medicina estética →</strong> guion más corto, puedes llegar al puente y al cierre en la misma conversación o WhatsApp.</li>
+<li><strong>Paciente mixta</strong> (viene por bótox pero menciona algo quirúrgico) → trátalo con el ritmo de cirugía en esa parte, no la apresures.</li>
+</ul>
+<h4>Aplicarlo por WhatsApp (no solo en llamada o visita)</h4>
+<p>El "tono bajo" y el "silencio de 3 segundos" no existen en texto, pero tienen equivalente escrito:</p>
+<ul>
+<li><strong>El silencio se traduce en no encadenar preguntas.</strong> Manda la pregunta de la herida sola, en un mensaje corto, y espera su respuesta antes de escribir nada más — no la sigas con otra pregunta ni con información del tratamiento en el mismo mensaje.</li>
+<li><strong>El tono bajo se traduce en mensajes más cortos y sin signos de exclamación.</strong> Frases cercanas y sin prisa, sin emojis en esa parte concreta de la conversación — el resto del guion sí puede llevar tu tono habitual.</li>
+<li><strong>El "efecto espejo" pesa incluso más por escrito:</strong> copia literalmente la palabra que ha usado la paciente en su mensaje cuando le respondas.</li>
+</ul>
+<h4>Si la paciente no se abre</h4>
+<p>Es el fallo más habitual del método: preguntas por la herida y la paciente responde algo genérico ("no sé, simplemente quiero probarlo") o cambia de tema. No insistas con otra pregunta emocional, es señal de que aún no hay confianza suficiente. En su lugar:</p>
+<ul>
+<li><strong>Da un paso atrás, no dos hacia delante.</strong> Vuelve a un terreno más neutro y descriptivo ("vale, cuéntame entonces qué es exactamente lo que te gustaría cambiar") en vez de repetir o reformular la pregunta emocional.</li>
+<li><strong>Sigue igualmente hacia la solución</strong> con la información racional que sí te ha dado (fase 1), sin forzar la fase 3. Muchas pacientes se abren más adelante, en la visita presencial con la Dra., no contigo por teléfono o WhatsApp — y está bien que así sea.</li>
+<li><strong>No lo interpretes como objeción de precio o desinterés.</strong> Cerrarse en la parte emocional no significa que no vaya a contratar; simplemente prefiere no verbalizarlo en ese momento del proceso.</li>
+</ul>
+<hr />
+<h2 id="estrategia-por-tipo-de-cliente"><span class="icon">👤</span>Estrategia por Tipo de Cliente</h2>
+<h3>Adapta tu discurso a cada perfil</h3>
+<p>Cada cliente llega con una mentalidad diferente. Identifica su perfil y aplica la estrategia adecuada para conectar y cerrar con naturalidad.</p>
+<h4>Perfil 1 · Cliente Informado "El que lo sabe todo"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Reconoce su conocimiento previo</li>
+<li>Aporta detalles que no haya encontrado por su cuenta</li>
+<li>Destaca la experiencia de la clínica y la personalización</li>
+</ul>
+<p><em>Apertura del cliente:</em> "He leído bastante sobre la blefaroplastia. Ya sé que la técnica transconjuntival no deja cicatriz visible, ¿verdad?"</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Qué bien que lo tengas tan mirado. Es verdad, con esa técnica se opera por dentro del párpado y no queda marca por fuera. Lo que marca la diferencia es si tu caso es candidata a esa técnica o necesitas la clásica. ¿Repasamos juntas cuál te iría mejor a ti?"</p></div></div>
+<h4>Perfil 2 · Cliente Escéptico "El que no se fía"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Empatiza con sus preocupaciones sin juzgar</li>
+<li>Proporciona evidencias: casos de éxito, resultados naturales</li>
+<li>Ofrece más información antes de cualquier compromiso</li>
+</ul>
+<p><em>Apertura del cliente:</em> "No estoy segura de que la rinoplastia deje un resultado natural, he visto casos que se nota mucho."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Te entiendo, es una duda muy habitual. Ese efecto artificial suele venir de tocar más estructura de la necesaria. Aquí se trabaja con proporciones naturales y simulación previa antes de operar. ¿Quieres ver antes/después de pacientes reales para hacerte una idea?"</p></div></div>
+<h4>Perfil 3 · Cliente Indeciso "El que necesita convencerse"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Ofrece una opción menos comprometida para empezar</li>
+<li>Demuestra flexibilidad y paciencia</li>
+<li>Presenta alternativas más suaves antes de las avanzadas</li>
+</ul>
+<p><em>Apertura del cliente:</em> "No sé si liposucción HD es lo que realmente necesito..."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Tiene toda la lógica dudarlo. Si quieres, empezamos valorando una lipoescultura más sencilla en la zona que más te preocupa, así ves resultado sin ir directamente a la técnica más compleja. Luego decides con calma si quieres ir a más."</p></div></div>
+<h4>Perfil 4 · Cliente Ansioso "El impaciente por resultados"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Énfasis en plazos de resultados y recuperación</li>
+<li>Explica el proceso paso a paso para dar seguridad</li>
+<li>Resalta el acompañamiento en todo el proceso</li>
+</ul>
+<p><em>Apertura del cliente:</em> "Quiero hacerme liposucción; quiero resultados rápidos. ¿Cuánto tardaré en recuperarme?"</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"El cambio se nota desde el primer momento, aunque la hinchazón tarda unas semanas en bajar del todo. Siguiendo las pautas post-operatorio el resultado final se ve bastante rápido, y durante todo el proceso tienes contacto directo con nosotras."</p></div></div>
+<h4>Perfil 5 · Cliente Transformador "El cambio radical"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Propón un plan integral y secuencial</li>
+<li>Asegura la compatibilidad entre tratamientos</li>
+<li>Organiza una consulta para revisar cada paso juntos</li>
+</ul>
+<p><em>Apertura del cliente:</em> "Quiero hacerme rinoplastia, aumento de pecho y liposucción; todo lo necesario para cambiar mi apariencia."</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Se puede hacer todo, pero por fases: primero la rinoplastia, y una vez recuperada, aumento de pecho y liposucción. Así cada tratamiento se asienta bien sin sobrecargarte de golpe. ¿Organizamos una consulta para ir marcando el plan?"</p></div></div>
+<h4>Perfil 6 · Cliente Innovador "El último grito tecnológico"</h4>
+<h4>Estrategia</h4>
+<ul>
+<li>Explica los avances tecnológicos disponibles</li>
+<li>Menciona resultados superiores y casos de éxito</li>
+<li>Hincapié en técnicas mínimamente invasivas y de última generación</li>
+</ul>
+<p><em>Apertura del cliente:</em> "He oído hablar de la liposucción HD con tecnología VASER; ¿es tan buena como dicen?"</p>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Sí, funciona muy bien cuando se hace con buena técnica. Separa la grasa sin dañar el tejido de alrededor y además resalta la musculatura, así que el resultado queda más definido que con la lipo tradicional. ¿Te cuento cómo es el proceso paso a paso?"</p></div></div>
+<hr />
+<h2 id="presentar-presupuesto-de-cirugía"><span class="icon">🏥</span>Presentar Presupuesto de Cirugía</h2>
+<h3>Intervenciones quirúrgicas recomendadas por la doctora</h3>
+<p>La cirugía representa una mayor inversión y requiere preparación mental y financiera. El enfoque debe ser cuidadoso, empático y bien detallado.</p>
+<h4>1 · Cliente Informado — Abdominoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Aspectos técnicos</span></h4>
+<p>"Para lo que buscas, la doctora recomienda abdominoplastia. El presupuesto incluye la intervención, el equipo de anestesia y todo el seguimiento postoperatorio. Sé que ya has leído bastante sobre la técnica, así que si tienes alguna duda más concreta, dímela y te la resuelvo."</p>
+<h4>2 · Cliente Escéptico — Rinoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Seguridad del procedimiento</span></h4>
+<p>"Es normal tener dudas antes de dar el paso. La rinoplastia que te recomienda la doctora mejora tanto la respiración como la estética. El presupuesto incluye el equipo quirúrgico y el seguimiento en cada revisión. Si quieres, te organizo otra charla con ella para resolver lo que te quede en el aire."</p>
+<h4>3 · Cliente Indeciso — Blefaroplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Financiación accesible</span></h4>
+<p>"La blefaroplastia que te recomendó la doctora es justo para eso, refrescar la mirada. Aquí tienes el presupuesto con la intervención, el equipo y el seguimiento. Si quieres, miramos también opciones de financiación para que te resulte más cómodo."</p>
+<h4>4 · Cliente Ansioso — Liposucción <span style="font-weight:400;opacity:.65;font-size:.85em;">· Tiempos de recuperación</span></h4>
+<p>"La doctora propuso liposucción para el contorno que buscas. El presupuesto cubre la intervención, la anestesia y las revisiones de seguimiento. Vamos acompañándote en cada paso para que la recuperación vaya bien. ¿Cómo lo ves?"</p>
+<h4>5 · Cliente Transformador — Abdominoplastia + Aumento de Senos <span style="font-weight:400;opacity:.65;font-size:.85em;">· Plan integral en fases</span></h4>
+<p>"La doctora planteó combinar abdominoplastia y aumento de pecho para conseguir ese cambio completo. Te desglosé el presupuesto por intervención, con el equipo quirúrgico y el postoperatorio de cada una. También se puede hacer por fases, para ir viéndolo poco a poco. ¿Repasamos cómo quedaría cada etapa?"</p>
+<h4>6 · Cliente Innovador — Rinoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Tecnología avanzada</span></h4>
+<p>"Para la rinoplastia que te recomendó la doctora usamos la técnica más precisa disponible, pensada para acortar la recuperación. El presupuesto incluye el procedimiento completo y el seguimiento post-operatorio. ¿Seguimos con esto?"</p>
+<hr />
+<h2 id="activar-leads"><span class="icon">📲</span>Activar Leads</h2>
+<h3>Reactiva el interés según el canal y la situación real del lead</h3>
+<p>Los mismos 4 escenarios en llamada, email y WhatsApp: lead frío que nunca contestó, presupuesto enviado sin respuesta, cita sin confirmar y paciente indecisa tras la visita médica. Mismo criterio en los tres canales, adaptado al formato de cada uno.</p>
+
+<h3>📞 Llamadas Telefónicas</h3>
+
+<h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
+<p><em>Objetivo:</em> sonar como alguien que se acuerda de ella, no como un call center leyendo un guion. Si no contesta, el mensaje de voz tiene que ser igual de natural.</p>
+<p><strong>Si contesta</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen, de Estetic Grup. Te llamo porque hace un tiempo hablamos de [tratamiento] y quería saber cómo lo llevas: si sigue interesándote o si ya no es el momento.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Si salta el buzón</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen de Estetic Grup. No hace falta que devuelvas la llamada si no es buen momento, solo quería saber si seguías interesada en [tratamiento]. Te escribo también por WhatsApp por si te viene mejor.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Presupuesto Enviado Sin Respuesta</h4>
+<p><em>Objetivo:</em> llamar para resolver una duda, no para preguntar "¿y qué has decidido?". Eso genera rechazo, no respuesta.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen. Te llamo porque te envié el presupuesto de [tratamiento] hace unos días y quería saber si te llegó bien, y si tienes alguna duda que pueda resolverte ahora mismo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Cita Agendada Sin Confirmar</h4>
+<p><em>Objetivo:</em> confirmar o mover la cita sin fricción, para no quedarte con un hueco vacío en la agenda de última hora.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te llamo para confirmar tu cita del [día] a las [hora]. ¿Sigue en pie o prefieres que te busque otro hueco?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Tras Visita con la Doctora · Indecisa</h4>
+<p><em>Objetivo:</em> dar espacio a la duda real en vez de cerrar en caliente. Si presionas aquí, pierdes al lead para siempre.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de la consulta con la doctora. Si hay algo que no te quedó claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h3>✉️ Correo Electrónico</h3>
+
+<h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
+<p><em>Objetivo:</em> cerrar el tema, no solo reabrirlo. Dar salida fácil para que conteste, aunque sea un "ya no me interesa".</p>
+<p><strong>Asunto:</strong> ¿Seguimos con lo de [tratamiento]?</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen de Estetic Grup. Hace un tiempo hablamos sobre [tratamiento] y no quería que se quedara en el aire. Si sigue interesándote, dime y te cuento las novedades que tenemos ahora. Y si ya no es el momento, también dímelo sin problema, así no te vuelvo a escribir por esto. Un abrazo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Presupuesto Enviado Sin Respuesta</h4>
+<p><em>Objetivo:</em> ofrecer ayuda concreta, no perseguir el sí. Nombrar la financiación baja la barrera sin que lo pidan.</p>
+<p><strong>Asunto:</strong> Sobre tu presupuesto de [tratamiento]</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo porque te envié el presupuesto de [tratamiento] hace unos días y no sé si te llegó bien. Si tienes dudas sobre el precio, la financiación o cualquier otra cosa, dímelo y lo vemos juntas con calma. Estoy aquí para lo que necesites. Un saludo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Cita Agendada Sin Confirmar</h4>
+<p><em>Objetivo:</em> confirmación que no exige respuesta si todo va bien, solo si hay que cambiar algo. Menos fricción, menos huecos vacíos.</p>
+<p><strong>Asunto:</strong> Tu cita del [día]</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo para confirmar tu cita del [día] a las [hora]. Si te viene bien, no hace falta que respondas. Si prefieres cambiarla, dime qué día te va mejor y lo movemos sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Tras Visita con la Doctora · Indecisa</h4>
+<p><em>Objetivo:</em> acompañar sin empujar. El email debe sonar a "estoy aquí", no a "¿ya te decides?".</p>
+<p><strong>Asunto:</strong> ¿Cómo te quedaste después de la consulta?</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber cómo te quedaste después de hablar con la doctora. Si hay algo que no te terminó de quedar claro, aquí estoy para resolverlo. Tómate el tiempo que necesites, sin prisa.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h3>💬 WhatsApp</h3>
+
+<h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
+<p><em>Objetivo:</em> retomar sin sonar a spam ni a reproche. Dar una salida fácil (sí/no) para que conteste algo, aunque sea un "ya no me interesa".</p>
+<p><strong>Ejemplo A</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Hace un tiempo preguntaste por [tratamiento] y no quería que se quedara en el aire. ¿Sigue interesándote o ya no es el momento?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo B</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 👋 Te escribo porque no supimos más de ti tras tu consulta por [tratamiento]. Sin compromiso: ¿lo retomamos o lo dejamos aparcado por ahora?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Presupuesto Enviado Sin Respuesta</h4>
+<p><em>Objetivo:</em> no perseguir el dinero, perseguir la duda. Casi nunca es el precio lo que frena, suele ser miedo o falta de tiempo para decidir.</p>
+<p><strong>Ejemplo A</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te pasé el presupuesto de [tratamiento] hace unos días, ¿te llegó bien? Si hay algo que no te cuadra o alguna duda, dímelo y lo miramos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo B</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿cómo va todo? Quería saber si has podido darle una vuelta al presupuesto que te envié. Si necesitas más tiempo o quieres que hablemos de la financiación, aquí estoy.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Cita Agendada Sin Confirmar</h4>
+<p><em>Objetivo:</em> recordatorio cercano, no burocrático. Facilita cambiar la cita en vez de que simplemente no aparezca.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te recuerdo tu cita del [día] a las [hora]. ¿Sigue en pie o prefieres que la movamos a otro día? Solo dímelo y lo cambio sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4>Tras Visita con la Doctora · Indecisa</h4>
+<p><em>Objetivo:</em> comprobar si quedó alguna duda técnica sin resolver, sin presionar para que decida ya.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal? Quería saber cómo te quedaste después de hablar con la doctora. Si algo no te quedó claro en la consulta, dímelo y te lo resuelvo por aquí mismo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<hr />
+<h2 id="protocolo-anti-plantones-y-reenganche-cirugía-plástica"><span class="icon">📵</span>Protocolo Anti-Plantones y Reenganche · Cirugía Plástica</h2>
+<p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Captación</p>
+<p>En cirugía plástica hay dos problemas distintos que no se resuelven con el mismo mensaje: los plantones en primera visita y el enfriamiento tras una visita en la que la paciente sale indecisa. Aquí van los dos protocolos completos, pensados para el ritmo lento y con miedo real que ya vimos en Venta Consultiva para cirugía.</p>
+<h3>Antes de usarlo · Contexto que hay que tener claro</h3>
+<p>La visita informativa es gratuita y se reserva sin depósito. Eso significa que una parte de los plantones es estructural: reservar no le cuesta nada a la paciente, así que ningún guion los va a eliminar del todo. Estos mensajes reducen el problema, no lo resuelven al 100%.</p>
+<h3>Anti-Plantones · Primera Visita</h3>
+<p><strong>1 · Al reservar (WhatsApp inmediato)</strong></p>
+<p>Objetivo: confirmar la cita y fijar la expectativa de qué se va a llevar de esa visita, no solo la fecha.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te confirmo tu visita informativa con la Dra. [Nombre] el [día] a las [hora], es gratuita y sin compromiso. Ese día repasáis juntas todo sobre [tratamiento]: qué opciones hay para tu caso, cómo sería el proceso, y sales con presupuesto cerrado si quieres. Cualquier cosa que necesites antes, aquí estoy.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>2 · 48h antes (WhatsApp, pidiendo respuesta activa)</strong></p>
+<p>Objetivo: conseguir un sí/no explícito para detectar el riesgo antes del día de la cita, no el mismo día.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo para confirmar tu visita del [día] a las [hora] con la Dra. [Nombre]. ¿Me confirmas si sigue en pie? Si surge algo y prefieres moverla, dímelo y buscamos otro hueco sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><em>Importante: la pregunta tiene que exigir respuesta. Nada de "si no dices nada, doy por hecho que vienes" — eso es pasivo y no avisa de nada.</em></p>
+<p><strong>3 · Si no contesta al de 48h → llamada</strong></p>
+<p>Objetivo: recuperar el contacto por un canal que cuesta más ignorar que un WhatsApp.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen de Estetic Grup. Te escribí hace un par de días para confirmar tu visita del [día] y no tuve respuesta, así que prefería llamarte directamente. ¿Sigue en pie la cita, o prefieres que busquemos otro momento?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p>Si tampoco contesta la llamada: mensaje de voz natural + un WhatsApp diciendo que llamaste, para que le quede constancia y le sea fácil retomar el contacto.</p>
+<p><strong>4 · Noche anterior (WhatsApp corto)</strong></p>
+<p>Objetivo: último recordatorio, facilitar el cambio de fecha en vez de que simplemente no aparezca.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te recuerdo tu visita de mañana [día] a las [hora] con la Dra. [Nombre]. Si al final no puedes venir, dímelo y te busco otro día, sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<h3>Reenganche · Tras Visita Indecisa</h3>
+<p><strong>1 · 24-48h después</strong></p>
+<p>Objetivo: pillar dudas técnicas sin resolver mientras la visita está fresca.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de hablar con la Dra. [Nombre] sobre [tratamiento]. Si hay algo que no te quedó del todo claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>2 · 7 días después, si no responde</strong></p>
+<p>Objetivo: aportar un ángulo nuevo. No repetir la misma pregunta genérica, eso cansa y no da motivo para contestar.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], sé que estas decisiones no se toman de un día para otro. Si lo que te ronda tiene que ver con el pago, te cuento que [tratamiento] se puede financiar [condiciones reales de financiación — pendiente de confirmar]. Y si es otra cosa lo que te frena, también dímelo, prefiero ayudarte con eso que dejarlo en el aire.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>3 · 15-20 días después</strong></p>
+<p>Objetivo: cerrar el ciclo con elegancia, dejar la puerta abierta y dar salida fácil sin presión.</p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], no quería dejar esto en el aire. Sé que lo de [tratamiento] es una decisión importante y puede que ahora no sea el momento, y está bien así. Si en algún momento quieres retomarlo, aquí me tienes. Y si ya no te interesa, dímelo tranquilamente para no insistir más. Un abrazo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<hr />
+<p style="font-size:.72rem; color:#948C82; line-height:1.5; margin-top:2.5em;">© 2026 Carmen Frutos · Manual Profesional de Consulta · Todos los derechos reservados<br />Uso Exclusivo Profesional · Prohibida su reproducción o distribución sin autorización</p>
+</main>
+</div>
+<a href="#top" class="back-top">↑</a>
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const overlay = document.getElementById('menuOverlay');
+  const nav = document.getElementById('sidebarNav');
+  function closeMenu(){ nav.classList.remove('open'); overlay.classList.remove('open'); toggle.classList.remove('open'); }
+  function openMenu(){ nav.classList.add('open'); overlay.classList.add('open'); toggle.classList.add('open'); }
+  toggle.addEventListener('click', () => nav.classList.contains('open') ? closeMenu() : openMenu());
+  overlay.addEventListener('click', closeMenu);
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  function copyNearText(btn) {
+    const card = btn.closest('.rp-bubble, .quote-card, .msg-card');
+    const textEl = card.querySelector('.rp-text, .quote-text, .msg-text');
+    let text = textEl.innerText.trim();
+    if (text.startsWith('\u201c') && text.endsWith('\u201d')) { text = text.slice(1, -1); }
+    const onCopied = () => {
+      const original = btn.textContent;
+      btn.textContent = btn.classList.contains('copy-mini') ? '✅' : '✅ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(onCopied).catch(() => fallbackCopy(text, onCopied));
+    } else {
+      fallbackCopy(text, onCopied);
+    }
+  }
+
+  function fallbackCopy(text, onDone) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.left = '-1000px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      onDone();
+    } catch (err) {
+      alert('No se ha podido copiar automáticamente. Selecciona el texto manualmente.');
+    }
+    document.body.removeChild(ta);
+  }
+</script>
+</body>
+</html>
