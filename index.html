@@ -107,7 +107,18 @@
 
     .back-top { position:fixed; bottom:24px; right:24px; background:var(--accent); color:#fff; width:42px; height:42px;
       border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;
-      font-size:1.1rem; box-shadow:0 4px 14px rgba(0,0,0,.15); }
+      font-size:1.1rem; box-shadow:0 4px 14px rgba(0,0,0,.15); z-index:500; }
+
+    .doc-selector { position:fixed; bottom:24px; left:24px; background:var(--paper); border:1px solid var(--line);
+      border-radius:12px; padding:10px 14px; box-shadow:0 4px 14px rgba(0,0,0,.12); font-family:'Inter',sans-serif;
+      z-index:500; display:flex; flex-direction:column; gap:5px; }
+    .doc-selector label { font-size:.68rem; letter-spacing:.04em; color:var(--accent-dark); font-weight:600; }
+    .doc-selector select { font-family:'Inter',sans-serif; font-size:.82rem; padding:6px 8px; border-radius:8px;
+      border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+    @media (max-width:900px) {
+      .doc-selector { left:12px; bottom:12px; padding:8px 10px; max-width:150px; }
+      .back-top { bottom:12px; right:12px; }
+    }
 
     @media (max-width:900px) {
       .menu-toggle { display:flex; }
@@ -344,7 +355,7 @@
 <p>La explantación es la puerta de entrada a una conversación más amplia. Muchas pacientes aprovechan para hacer una mastopexia simultánea, cambiar a implantes más pequeños, o iniciar tratamientos estéticos para recuperar la firmeza de la piel. Es una consulta con alto potencial de propuesta integral.</p>
 <h4>Role play · Miedo a quedar caída</h4>
 <p><em>Apertura de la paciente:</em> "Llevo años con las prótesis y ahora quiero quitármelas, pero me da miedo verme muy caída o que se note demasiado el cambio."</p>
-<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Es de las dudas más habituales, y se puede planificar justo para evitar eso. El Dr. Daniel Vazquez valora en la consulta cómo está tu piel: si necesita sujeción, se hace una mastopexia en la misma cirugía para que la retirada quede firme, no caída. No tienes que elegir entre quitarte las prótesis o verte bien, se puede tener las dos cosas."</p></div></div>
+<div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Es de las dudas más habituales, y se puede planificar justo para evitar eso. <span class="doc-dyn" data-type="full-cap">El Dr. Daniel Vazquez</span> valora en la consulta cómo está tu piel: si necesita sujeción, se hace una mastopexia en la misma cirugía para que la retirada quede firme, no caída. No tienes que elegir entre quitarte las prótesis o verte bien, se puede tener las dos cosas."</p></div></div>
 <hr />
 <h2 id="blefaroplastia"><span class="icon">👁</span>Blefaroplastia</h2>
 <p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Párpados</p>
@@ -908,8 +919,8 @@
 <p><strong>Fase 1-2 · Escarbar:</strong> "Cuéntame, ¿desde cuándo le das vueltas? Y en el día a día, ¿en qué momentos notas que más te afecta?"</p>
 <p><strong>Fase 3 · Herida:</strong> "Siendo sincera... más allá de lo físico, ¿qué es lo que realmente te frena? ¿Es el miedo a la cirugía en sí, o algo más?"</p>
 <p><strong>Paciente:</strong> "Me da pánico la anestesia, y también qué pasará si el resultado no es el que espero."</p>
-<p><strong>Fase 4 · Puente:</strong> "Te entiendo perfectamente, y es la duda más habitual en cirugía. Precisamente por ese miedo a la anestesia y al resultado, el Dr. Daniel Vazquez hace una valoración presencial antes de nada, donde te explica técnica, riesgos reales y qué esperar, para que decidas con información y no con miedo."</p>
-<p><strong>Beneficio emocional:</strong> "No te comprometes a nada en esa primera visita, solo a salir con las dudas resueltas. Y cuando llegue el día, no vendes el proceso: vendes que en unos meses se mire al espejo tranquila, sin esa duda rondándole la cabeza. ¿Te reservo esa primera visita con el Dr. Daniel Vazquez para que resuelva contigo lo de la anestesia y el resultado cara a cara?"</p>
+<p><strong>Fase 4 · Puente:</strong> "Te entiendo perfectamente, y es la duda más habitual en cirugía. Precisamente por ese miedo a la anestesia y al resultado, <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> hace una valoración presencial antes de nada, donde te explica técnica, riesgos reales y qué esperar, para que decidas con información y no con miedo."</p>
+<p><strong>Beneficio emocional:</strong> "No te comprometes a nada en esa primera visita, solo a salir con las dudas resueltas. Y cuando llegue el día, no vendes el proceso: vendes que en unos meses se mire al espejo tranquila, sin esa duda rondándole la cabeza. ¿Te reservo esa primera visita con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> para que resuelva contigo lo de la anestesia y el resultado cara a cara?"</p>
 </blockquote>
 <h4>💉 Medicina Estética · Guion diferenciado</h4>
 <p><strong>Rasgo del proceso:</strong> decisión rápida, sin quirófano, muchas veces por mantenimiento o mejora puntual. El miedo no es físico, es más bien "que se note" o "verme artificial". Aquí el guion puede avanzar en una sola conversación.</p>
@@ -919,11 +930,11 @@
 <p><strong>Fase 3 · Herida:</strong> "Entiendo. Y aparte de lo estético, ¿qué es lo que más te incomoda de verte así? ¿Te resta seguridad en el día a día?"</p>
 <p><strong>Paciente:</strong> "La verdad es que sí, me veo mayor de lo que me siento."</p>
 <p><strong>Fase 4 · Puente:</strong> "Precisamente por eso que me cuentas, de verte mayor de lo que te sientes, este tratamiento lo que busca es devolver luz al rostro sin que se note nada, solo un 'algo tienes distinto'."</p>
-<p><strong>Beneficio emocional:</strong> "¿Te preparo cita con el Dr. Vazquez esta semana? Vas a salir con esa sensación de verte descansada y como tú misma, no con cara de haber pasado por quirófano."</p>
+<p><strong>Beneficio emocional:</strong> "¿Te preparo cita con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> esta semana? Vas a salir con esa sensación de verte descansada y como tú misma, no con cara de haber pasado por quirófano."</p>
 </blockquote>
 <h4>Cuándo usar cada ritmo</h4>
 <ul>
-<li><strong>Cirugía →</strong> más fases de escucha, más silencios, cierre en varias visitas. El objetivo de la primera llamada no es cerrar cirugía, es cerrar la <em>visita con el Dr.</em></li>
+<li><strong>Cirugía →</strong> más fases de escucha, más silencios, cierre en varias visitas. El objetivo de la primera llamada no es cerrar cirugía, es cerrar la <em>visita con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span></em></li>
 <li><strong>Medicina estética →</strong> guion más corto, puedes llegar al puente y al cierre en la misma conversación o WhatsApp.</li>
 <li><strong>Paciente mixta</strong> (viene por bótox pero menciona algo quirúrgico) → trátalo con el ritmo de cirugía en esa parte, no la apresures.</li>
 </ul>
@@ -938,7 +949,7 @@
 <p>Es el fallo más habitual del método: preguntas por la herida y la paciente responde algo genérico ("no sé, simplemente quiero probarlo") o cambia de tema. No insistas con otra pregunta emocional, es señal de que aún no hay confianza suficiente. En su lugar:</p>
 <ul>
 <li><strong>Da un paso atrás, no dos hacia delante.</strong> Vuelve a un terreno más neutro y descriptivo ("vale, cuéntame entonces qué es exactamente lo que te gustaría cambiar") en vez de repetir o reformular la pregunta emocional.</li>
-<li><strong>Sigue igualmente hacia la solución</strong> con la información racional que sí te ha dado (fase 1), sin forzar la fase 3. Muchas pacientes se abren más adelante, en la visita presencial con el Dr., no contigo por teléfono o WhatsApp — y está bien que así sea.</li>
+<li><strong>Sigue igualmente hacia la solución</strong> con la información racional que sí te ha dado (fase 1), sin forzar la fase 3. Muchas pacientes se abren más adelante, en la visita presencial con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span>, no contigo por teléfono o WhatsApp — y está bien que así sea.</li>
 <li><strong>No lo interpretes como objeción de precio o desinterés.</strong> Cerrarse en la parte emocional no significa que no vaya a contratar; simplemente prefiere no verbalizarlo en ese momento del proceso.</li>
 </ul>
 <hr />
@@ -1001,20 +1012,20 @@
 <div class="rp-row bubble-a"><div class="rp-bubble"><p class="rp-text">"Sí, funciona muy bien cuando se hace con buena técnica. Separa la grasa sin dañar el tejido de alrededor y además resalta la musculatura, así que el resultado queda más definido que con la lipo tradicional. ¿Te cuento cómo es el proceso paso a paso?"</p></div></div>
 <hr />
 <h2 id="presentar-presupuesto-de-cirugía"><span class="icon">🏥</span>Presentar Presupuesto de Cirugía</h2>
-<h3>Intervenciones quirúrgicas recomendadas por el doctor</h3>
+<h3>Intervenciones quirúrgicas recomendadas por <span class="doc-dyn" data-type="short">el doctor</span></h3>
 <p>La cirugía representa una mayor inversión y requiere preparación mental y financiera. El enfoque debe ser cuidadoso, empático y bien detallado.</p>
 <h4>1 · Cliente Informado — Abdominoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Aspectos técnicos</span></h4>
-<p>"Para lo que buscas, el Dr. Vazquez recomienda abdominoplastia. El presupuesto incluye la intervención, el equipo de anestesia y todo el seguimiento postoperatorio. Sé que ya has leído bastante sobre la técnica, así que si tienes alguna duda más concreta, dímela y te la resuelvo."</p>
+<p>"Para lo que buscas, <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> recomienda abdominoplastia. El presupuesto incluye la intervención, el equipo de anestesia y todo el seguimiento postoperatorio. Sé que ya has leído bastante sobre la técnica, así que si tienes alguna duda más concreta, dímela y te la resuelvo."</p>
 <h4>2 · Cliente Escéptico — Rinoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Seguridad del procedimiento</span></h4>
-<p>"Es normal tener dudas antes de dar el paso. La rinoplastia que te recomienda el Dr. Vazquez mejora tanto la respiración como la estética. El presupuesto incluye el equipo quirúrgico y el seguimiento en cada revisión. Si quieres, te organizo otra charla con él para resolver lo que te quede en el aire."</p>
+<p>"Es normal tener dudas antes de dar el paso. La rinoplastia que te recomienda <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> mejora tanto la respiración como la estética. El presupuesto incluye el equipo quirúrgico y el seguimiento en cada revisión. Si quieres, te organizo otra charla <span class="doc-dyn" data-type="pronoun">con él</span> para resolver lo que te quede en el aire."</p>
 <h4>3 · Cliente Indeciso — Blefaroplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Financiación accesible</span></h4>
-<p>"La blefaroplastia que te recomendó el Dr. Vazquez es justo para eso, refrescar la mirada. Aquí tienes el presupuesto con la intervención, el equipo y el seguimiento. Si quieres, miramos también opciones de financiación para que te resulte más cómodo."</p>
+<p>"La blefaroplastia que te recomendó <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> es justo para eso, refrescar la mirada. Aquí tienes el presupuesto con la intervención, el equipo y el seguimiento. Si quieres, miramos también opciones de financiación para que te resulte más cómodo."</p>
 <h4>4 · Cliente Ansioso — Liposucción <span style="font-weight:400;opacity:.65;font-size:.85em;">· Tiempos de recuperación</span></h4>
-<p>"El Dr. Vazquez propuso liposucción para el contorno que buscas. El presupuesto cubre la intervención, la anestesia y las revisiones de seguimiento. Vamos acompañándote en cada paso para que la recuperación vaya bien. ¿Cómo lo ves?"</p>
+<p>"<span class="doc-dyn" data-type="full-cap">El Dr. Daniel Vazquez</span> propuso liposucción para el contorno que buscas. El presupuesto cubre la intervención, la anestesia y las revisiones de seguimiento. Vamos acompañándote en cada paso para que la recuperación vaya bien. ¿Cómo lo ves?"</p>
 <h4>5 · Cliente Transformador — Abdominoplastia + Aumento de Senos <span style="font-weight:400;opacity:.65;font-size:.85em;">· Plan integral en fases</span></h4>
-<p>"El Dr. Vazquez planteó combinar abdominoplastia y aumento de pecho para conseguir ese cambio completo. Te desglosé el presupuesto por intervención, con el equipo quirúrgico y el postoperatorio de cada una. También se puede hacer por fases, para ir viéndolo poco a poco. ¿Repasamos cómo quedaría cada etapa?"</p>
+<p>"<span class="doc-dyn" data-type="full-cap">El Dr. Daniel Vazquez</span> planteó combinar abdominoplastia y aumento de pecho para conseguir ese cambio completo. Te desglosé el presupuesto por intervención, con el equipo quirúrgico y el postoperatorio de cada una. También se puede hacer por fases, para ir viéndolo poco a poco. ¿Repasamos cómo quedaría cada etapa?"</p>
 <h4>6 · Cliente Innovador — Rinoplastia <span style="font-weight:400;opacity:.65;font-size:.85em;">· Tecnología avanzada</span></h4>
-<p>"Para la rinoplastia que te recomendó el Dr. Vazquez usamos la técnica más precisa disponible, pensada para acortar la recuperación. El presupuesto incluye el procedimiento completo y el seguimiento post-operatorio. ¿Seguimos con esto?"</p>
+<p>"Para la rinoplastia que te recomendó <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> usamos la técnica más precisa disponible, pensada para acortar la recuperación. El presupuesto incluye el procedimiento completo y el seguimiento post-operatorio. ¿Seguimos con esto?"</p>
 <hr />
 <h2 id="activar-leads"><span class="icon">📲</span>Activar Leads</h2>
 <h3>Reactiva el interés según el canal y la situación real del lead</h3>
@@ -1022,8 +1033,15 @@
 
 <h3>📞 Llamadas Telefónicas</h3>
 
+<h4>Nuevo Lead · Solicitó Información de un Tratamiento — Primera Llamada</h4>
+<p><em>Objetivo:</em> contactar rápido (idealmente primeras 2h) para no perder el momento de interés. Si no localizas, el mensaje de voz o WhatsApp posterior tiene que sonar a "te acabo de llamar", no a guion genérico.</p>
+<p><strong>Si contesta</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen, de Estetic Grup. Te llamo porque nos escribiste preguntando por [tratamiento]. ¿Tienes un minuto para que te cuente cómo funciona y resolvamos tus primeras dudas?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Si no localiza · Aviso inmediato por WhatsApp</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te acabo de llamar porque nos escribiste preguntando por [tratamiento], pero no he podido localizarte. Te dejo por aquí toda la información que necesites, o si prefieres, dime cuándo te viene bien que te llame de nuevo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
 <h4>Si Llamas y No Contesta · Aviso por WhatsApp</h4>
-<p><em>Objetivo:</em> avisar de que has llamado, sin sonar a control. Válido para cualquier situación (lead frío, presupuesto, cita, indecisa) — solo cambia el motivo entre corchetes.</p>
+<p><em>Objetivo:</em> avisar de que has llamado, sin sonar a control. Válido para cualquier situación posterior (presupuesto, cita, indecisa) — solo cambia el motivo entre corchetes.</p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te acabo de llamar pero no he podido localizarte. Te escribo por aquí para lo mismo: [motivo, ej. saber cómo llevas lo de tu tratamiento / confirmar tu cita del día X]. Cuando puedas, me dices y seguimos por aquí.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
@@ -1043,7 +1061,7 @@
 
 <h4>Tras Visita con el Doctor · Indecisa</h4>
 <p><em>Objetivo:</em> dar espacio a la duda real en vez de cerrar en caliente. Si presionas aquí, pierdes al lead para siempre.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de la consulta con el doctor. Si hay algo que no te quedó claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de la consulta con <span class="doc-dyn" data-type="short">el doctor</span>. Si hay algo que no te quedó claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h3>✉️ Correo Electrónico</h3>
 
@@ -1065,9 +1083,16 @@
 <h4>Tras Visita con el Doctor · Indecisa</h4>
 <p><em>Objetivo:</em> acompañar sin empujar. El email debe sonar a "estoy aquí", no a "¿ya te decides?".</p>
 <p><strong>Asunto:</strong> ¿Cómo te quedaste después de la consulta?</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber cómo te quedaste después de hablar con el doctor. Si hay algo que no te terminó de quedar claro, aquí estoy para resolverlo. Tómate el tiempo que necesites, sin prisa.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber cómo te quedaste después de hablar con <span class="doc-dyn" data-type="short">el doctor</span>. Si hay algo que no te terminó de quedar claro, aquí estoy para resolverlo. Tómate el tiempo que necesites, sin prisa.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h3>💬 WhatsApp</h3>
+
+<h4>Nuevo Lead · Solicitó Información de un Tratamiento</h4>
+<p><em>Objetivo:</em> responder rápido (idealmente en las primeras 2h) con calidez, generando confianza antes de hablar de precio.</p>
+<p><strong>Ejemplo A</strong> <span style="opacity:.6;font-size:.85em;">(respuesta general, para orientar y conocer su caso)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Vi que preguntaste por [tratamiento], encantada de ayudarte. Para orientarte bien, ¿me cuentas un poco qué es lo que te gustaría mejorar o conseguir?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si ya dio detalles concretos en su mensaje inicial)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Gracias por escribirnos. Sobre [tratamiento] te cuento: el primer paso es una visita informativa con <span class="doc-dyn" data-type="short">el doctor</span>, gratuita y sin compromiso, donde valoráis <span class="doc-dyn" data-type="plural">juntos</span> tu caso concreto. ¿Quieres que te la reserve esta semana?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
 <p><em>Objetivo:</em> retomar sin sonar a spam ni a reproche. Dar una salida fácil (sí/no) para que conteste algo, aunque sea un "ya no me interesa".</p>
@@ -1091,23 +1116,23 @@
 <p><strong>Ejemplo A</strong> <span style="opacity:.6;font-size:.85em;">(recordatorio estándar, 48h antes)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te recuerdo tu cita del [día] a las [hora]. ¿Sigue en pie o prefieres que la movamos a otro día? Solo dímelo y lo cambio sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si es la primera visita informativa y quieres fijar expectativa)</span></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te confirmo tu visita del [día] a las [hora] con el Dr. Daniel Vazquez para hablar de [tratamiento]. Es gratuita y sin compromiso — repasáis juntos tu caso y sales con toda la información. ¿Te viene bien seguir con ese horario?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te confirmo tu visita del [día] a las [hora] con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> para hablar de [tratamiento]. Es gratuita y sin compromiso — repasáis <span class="doc-dyn" data-type="plural">juntos</span> tu caso y sales con toda la información. ¿Te viene bien seguir con ese horario?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo C</strong> <span style="opacity:.6;font-size:.85em;">(recordatorio corto, mismo día)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], solo para recordarte que hoy tienes tu cita a las [hora] 🙂 ¡Nos vemos ahora!</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Tras Visita con el Doctor · Indecisa</h4>
 <p><em>Objetivo:</em> comprobar si quedó alguna duda técnica sin resolver, sin presionar para que decida ya.</p>
 <p><strong>Ejemplo A</strong></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal? Quería saber cómo te quedaste después de hablar con el doctor. Si algo no te quedó claro en la consulta, dímelo y te lo resuelvo por aquí mismo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal? Quería saber cómo te quedaste después de hablar con <span class="doc-dyn" data-type="short">el doctor</span>. Si algo no te quedó claro en la consulta, dímelo y te lo resuelvo por aquí mismo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si notaste que dudaba entre dos opciones en la visita)</span></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Se me quedó la duda de si al final te decantas más por [opción A] o por [opción B] de lo que hablasteis con el doctor. Si quieres que repasemos ventajas de cada una otra vez, dímelo sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Se me quedó la duda de si al final te decantas más por [opción A] o por [opción B] de lo que hablasteis con <span class="doc-dyn" data-type="short">el doctor</span>. Si quieres que repasemos ventajas de cada una otra vez, dímelo sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Pidió Información Pero No Reservó Visita</h4>
 <p><em>Objetivo:</em> mover al lead del "solo estoy mirando" a reservar la visita gratuita, sin presionar con el precio antes de tiempo.</p>
 <p><strong>Ejemplo A</strong> <span style="opacity:.6;font-size:.85em;">(24–48h después de la primera consulta)</span></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Vi que preguntaste por [tratamiento], ¿quieres que te reserve una visita informativa con el Dr. Daniel Vazquez? Es gratuita y sin compromiso, y así puedes resolver todas tus dudas con él directamente.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Vi que preguntaste por [tratamiento], ¿quieres que te reserve una visita informativa con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span>? Es gratuita y sin compromiso, y así puedes resolver todas tus dudas <span class="doc-dyn" data-type="pronoun">con él</span> directamente.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si no contestó al primer mensaje, 5–7 días después)</span></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], no sé si sigues con dudas sobre [tratamiento]. Si quieres, sin ningún compromiso, te agendo una primera visita con el doctor para que veas opciones reales para tu caso. Cuando quieras me dices y buscamos el hueco que mejor te venga.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], no sé si sigues con dudas sobre [tratamiento]. Si quieres, sin ningún compromiso, te agendo una primera visita con <span class="doc-dyn" data-type="short">el doctor</span> para que veas opciones reales para tu caso. Cuando quieras me dices y buscamos el hueco que mejor te venga.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Cirugía Reservada · Pendiente de Firma o Pago</h4>
 <p><em>Objetivo:</em> recordar el paso administrativo pendiente sin que suene a cobro. La paciente ya decidió, solo falta cerrar el papeleo.</p>
@@ -1121,7 +1146,7 @@
 <h4>No Acudió a la Visita</h4>
 <p><em>Objetivo:</em> reabrir la puerta sin reproche. Un plantón no es un "no", casi siempre es que surgió algo — trátalo así.</p>
 <p><strong>1 · Mismo día o día siguiente</strong></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Vi que hoy no pudiste venir a tu cita con el Dr. Daniel Vazquez. Espero que esté todo bien. Si quieres, te busco otro hueco cuando te venga mejor, sin ningún problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Vi que hoy no pudiste venir a tu cita con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span>. Espero que esté todo bien. Si quieres, te busco otro hueco cuando te venga mejor, sin ningún problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>2 · Si no contesta al primero</strong> <span style="opacity:.6;font-size:.85em;">(3-4 días después)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no sé si al final surgió algo el día de la cita. Sigue en pie lo de [tratamiento] si quieres retomarlo, solo dime qué día te viene bien y te busco hueco.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>3 · Cierre</strong> <span style="opacity:.6;font-size:.85em;">(10-15 días después, si sigue sin respuesta)</span></p>
@@ -1135,10 +1160,10 @@
 <h3>Anti-Plantones · Primera Visita</h3>
 <p><strong>1 · Al reservar (WhatsApp inmediato)</strong></p>
 <p>Objetivo: confirmar la cita y fijar la expectativa de qué se va a llevar de esa visita, no solo la fecha.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te confirmo tu visita informativa con el Dr. Daniel Vazquez el [día] a las [hora], es gratuita y sin compromiso. Ese día repasáis juntos todo sobre [tratamiento]: qué opciones hay para tu caso, cómo sería el proceso, y sales con presupuesto cerrado si quieres. Cualquier cosa que necesites antes, aquí estoy.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te confirmo tu visita informativa con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> el [día] a las [hora], es gratuita y sin compromiso. Ese día repasáis <span class="doc-dyn" data-type="plural">juntos</span> todo sobre [tratamiento]: qué opciones hay para tu caso, cómo sería el proceso, y sales con presupuesto cerrado si quieres. Cualquier cosa que necesites antes, aquí estoy.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>2 · 48h antes (WhatsApp, pidiendo respuesta activa)</strong></p>
 <p>Objetivo: conseguir un sí/no explícito para detectar el riesgo antes del día de la cita, no el mismo día.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo para confirmar tu visita del [día] a las [hora] con el Dr. Daniel Vazquez. ¿Me confirmas si sigue en pie? Si surge algo y prefieres moverla, dímelo y buscamos otro hueco sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo para confirmar tu visita del [día] a las [hora] con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span>. ¿Me confirmas si sigue en pie? Si surge algo y prefieres moverla, dímelo y buscamos otro hueco sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><em>Importante: la pregunta tiene que exigir respuesta. Nada de "si no dices nada, doy por hecho que vienes" — eso es pasivo y no avisa de nada.</em></p>
 <p><strong>3 · Si no contesta al de 48h → llamada</strong></p>
 <p>Objetivo: recuperar el contacto por un canal que cuesta más ignorar que un WhatsApp.</p>
@@ -1146,11 +1171,11 @@
 <p>Si tampoco contesta la llamada: mensaje de voz natural + un WhatsApp diciendo que llamaste, para que le quede constancia y le sea fácil retomar el contacto.</p>
 <p><strong>4 · Noche anterior (WhatsApp corto)</strong></p>
 <p>Objetivo: último recordatorio, facilitar el cambio de fecha en vez de que simplemente no aparezca.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te recuerdo tu visita de mañana [día] a las [hora] con el Dr. Daniel Vazquez. Si al final no puedes venir, dímelo y te busco otro día, sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Te recuerdo tu visita de mañana [día] a las [hora] con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span>. Si al final no puedes venir, dímelo y te busco otro día, sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <h3>Reenganche · Tras Visita Indecisa</h3>
 <p><strong>1 · 24-48h después</strong></p>
 <p>Objetivo: pillar dudas técnicas sin resolver mientras la visita está fresca.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de hablar con el Dr. Daniel Vazquez sobre [tratamiento]. Si hay algo que no te quedó del todo claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de hablar con <span class="doc-dyn" data-type="full">el Dr. Daniel Vazquez</span> sobre [tratamiento]. Si hay algo que no te quedó del todo claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>2 · 7 días después, si no responde</strong></p>
 <p>Objetivo: aportar un ángulo nuevo. No repetir la misma pregunta genérica, eso cansa y no da motivo para contestar.</p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], sé que estas decisiones no se toman de un día para otro. Si lo que te ronda tiene que ver con el pago, te cuento que [tratamiento] se puede financiar [condiciones reales de financiación — pendiente de confirmar]. Y si es otra cosa lo que te frena, también dímelo, prefiero ayudarte con eso que dejarlo en el aire.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
@@ -1160,6 +1185,14 @@
 <hr />
 <p style="font-size:.72rem; color:#948C82; line-height:1.5; margin-top:2.5em;">© 2026 Carmen Frutos · Manual Profesional de Consulta · Todos los derechos reservados<br />Uso Exclusivo Profesional · Prohibida su reproducción o distribución sin autorización</p>
 </main>
+</div>
+<div class="doc-selector" id="docSelector">
+  <label for="docSelect">👨‍⚕️ Doctor/a en los mensajes</label>
+  <select id="docSelect">
+    <option value="daniel">Dr. Daniel Vazquez</option>
+    <option value="guxens">Dr. Guxens</option>
+    <option value="cristina">Dra. Cristina</option>
+  </select>
 </div>
 <a href="#top" class="back-top">↑</a>
 <script>
@@ -1208,6 +1241,36 @@
     }
     document.body.removeChild(ta);
   }
+
+  // Selector de doctor/a dinámico
+  const DOCTORS = {
+    daniel:   { full: 'Dr. Daniel Vazquez', fullArt: 'el Dr. Daniel Vazquez', short: 'el doctor', pronoun: 'con él', plural: 'juntos' },
+    guxens:   { full: 'Dr. Guxens',         fullArt: 'el Dr. Guxens',         short: 'el doctor', pronoun: 'con él', plural: 'juntos' },
+    cristina: { full: 'Dra. Cristina',      fullArt: 'la Dra. Cristina',      short: 'la doctora', pronoun: 'con ella', plural: 'juntas' }
+  };
+
+  function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+  function applyDoctor(id) {
+    const d = DOCTORS[id] || DOCTORS.daniel;
+    document.querySelectorAll('.doc-dyn').forEach(el => {
+      const type = el.dataset.type;
+      if (type === 'full') el.textContent = d.fullArt;
+      else if (type === 'full-cap') el.textContent = capitalize(d.fullArt);
+      else if (type === 'short') el.textContent = d.short;
+      else if (type === 'pronoun') el.textContent = d.pronoun;
+      else if (type === 'plural') el.textContent = d.plural;
+    });
+  }
+
+  const docSelect = document.getElementById('docSelect');
+  const savedDoctor = localStorage.getItem('manualDoctorSeleccionado') || 'daniel';
+  docSelect.value = savedDoctor;
+  applyDoctor(savedDoctor);
+  docSelect.addEventListener('change', () => {
+    localStorage.setItem('manualDoctorSeleccionado', docSelect.value);
+    applyDoctor(docSelect.value);
+  });
 </script>
 </body>
 </html>
