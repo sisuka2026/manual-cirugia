@@ -109,14 +109,19 @@
       border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;
       font-size:1.1rem; box-shadow:0 4px 14px rgba(0,0,0,.15); z-index:500; }
 
-    .doc-selector { position:fixed; bottom:24px; left:24px; background:var(--paper); border:1px solid var(--line);
-      border-radius:12px; padding:10px 14px; box-shadow:0 4px 14px rgba(0,0,0,.12); font-family:'Inter',sans-serif;
-      z-index:500; display:flex; flex-direction:column; gap:5px; }
-    .doc-selector label { font-size:.68rem; letter-spacing:.04em; color:var(--accent-dark); font-weight:600; }
-    .doc-selector select { font-family:'Inter',sans-serif; font-size:.82rem; padding:6px 8px; border-radius:8px;
+    .doc-selector { position:fixed; bottom:24px; left:24px; z-index:500; font-family:'Inter',sans-serif; }
+    .doc-selector-toggle { width:42px; height:42px; border-radius:50%; background:var(--accent); color:#fff;
+      border:none; font-size:1.15rem; display:flex; align-items:center; justify-content:center; cursor:pointer;
+      box-shadow:0 4px 14px rgba(0,0,0,.15); }
+    .doc-selector-panel { display:none; position:absolute; bottom:50px; left:0; background:var(--paper);
+      border:1px solid var(--line); border-radius:12px; padding:10px 12px; box-shadow:0 4px 14px rgba(0,0,0,.12);
+      flex-direction:column; gap:5px; white-space:nowrap; }
+    .doc-selector-panel.open { display:flex; }
+    .doc-selector-panel label { font-size:.68rem; letter-spacing:.04em; color:var(--accent-dark); font-weight:600; }
+    .doc-selector-panel select { font-family:'Inter',sans-serif; font-size:.82rem; padding:6px 8px; border-radius:8px;
       border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
     @media (max-width:900px) {
-      .doc-selector { left:12px; bottom:12px; padding:8px 10px; max-width:150px; }
+      .doc-selector { left:12px; bottom:12px; }
       .back-top { bottom:12px; right:12px; }
     }
 
@@ -1067,6 +1072,13 @@
 <p><em>Objetivo:</em> avisar de que has llamado, sin sonar a control. Válido para cualquier situación posterior (presupuesto, cita, indecisa) — solo cambia el motivo entre corchetes.</p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Te acabo de llamar pero no he podido localizarte. Te escribo por aquí para lo mismo: [motivo, ej. saber cómo llevas lo de tu tratamiento / confirmar tu cita del día X]. Cuando puedas, me dices y seguimos por aquí.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
+<h4>Si Tampoco Contesta al WhatsApp · Recordatorio Sencillo</h4>
+<p><em>Objetivo:</em> un empujón mínimo, sin repetir el motivo ni añadir más información. Cuanto más corto y más fácil de contestar, más probabilidad de respuesta — pide un sí/no, no una decisión.</p>
+<p><strong>Opción A</strong> <span style="opacity:.6;font-size:.85em;">(2-3 días después)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 ¿Sigue interesándote? Con un sí o un no ya me vale, así no te insisto más.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Opción B</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿te llegó bien mi mensaje? Sin prisa, solo dime algo cuando puedas 🙂</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
 <h4>Lead Frío · Preguntó hace semanas/meses y nunca contestó</h4>
 <p><em>Objetivo:</em> sonar como alguien que se acuerda de ella, no como un call center leyendo un guion. Si no contesta, el mensaje de voz tiene que ser igual de natural.</p>
 <p><strong>Si contesta</strong></p>
@@ -1210,13 +1222,16 @@
 </main>
 </div>
 <div class="doc-selector" id="docSelector">
-  <label for="docSelect">👨‍⚕️ Doctor/a en los mensajes</label>
-  <select id="docSelect">
-    <option value="daniel">Dr. Daniel Vázquez</option>
-    <option value="guxens">Dr. Guxens</option>
-    <option value="cristina">Dra. Cristina</option>
-    <option value="felix">Dr. Félix</option>
-  </select>
+  <button class="doc-selector-toggle" id="docToggle" aria-label="Elegir doctor/a" title="Elegir doctor/a">👨‍⚕️</button>
+  <div class="doc-selector-panel" id="docPanel">
+    <label for="docSelect">Doctor/a en los mensajes</label>
+    <select id="docSelect">
+      <option value="daniel">Dr. Daniel Vázquez</option>
+      <option value="guxens">Dr. Guxens</option>
+      <option value="cristina">Dra. Cristina</option>
+      <option value="felix">Dr. Félix</option>
+    </select>
+  </div>
 </div>
 <a href="#top" class="back-top">↑</a>
 <script>
@@ -1289,12 +1304,23 @@
   }
 
   const docSelect = document.getElementById('docSelect');
+  const docToggle = document.getElementById('docToggle');
+  const docPanel = document.getElementById('docPanel');
+  const docSelector = document.getElementById('docSelector');
   const savedDoctor = localStorage.getItem('manualDoctorSeleccionado') || 'daniel';
   docSelect.value = savedDoctor;
   applyDoctor(savedDoctor);
+  docToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    docPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!docSelector.contains(e.target)) docPanel.classList.remove('open');
+  });
   docSelect.addEventListener('change', () => {
     localStorage.setItem('manualDoctorSeleccionado', docSelect.value);
     applyDoctor(docSelect.value);
+    docPanel.classList.remove('open');
   });
 </script>
 </body>
