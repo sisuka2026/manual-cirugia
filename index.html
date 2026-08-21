@@ -18,6 +18,8 @@
       padding:28px 18px; position:sticky; top:0; height:100vh; overflow-y:auto; font-family:'Inter',sans-serif; }
     nav.sidebar .brand { font-family:'Source Serif 4',Georgia,serif; font-size:1.05rem; font-weight:600; color:var(--accent-dark); margin-bottom:2px; }
     nav.sidebar .theme-tag { font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin-bottom:22px; display:block; }
+    nav.sidebar .theme-tag:not(:first-child) { margin-top:6px; }
+    nav.sidebar .nav-divider { border:none; border-top:1px solid var(--line); margin:18px 0 20px; }
     nav.sidebar a { display:flex; align-items:center; gap:8px; font-size:.83rem; color:#55504A; text-decoration:none;
       padding:7px 10px; border-radius:8px; margin-bottom:2px; transition:background .15s,color .15s; }
     nav.sidebar a:hover { background:var(--paper); color:var(--accent-dark); }
@@ -120,9 +122,44 @@
     .doc-selector-panel label { font-size:.68rem; letter-spacing:.04em; color:var(--accent-dark); font-weight:600; }
     .doc-selector-panel select { font-family:'Inter',sans-serif; font-size:.82rem; padding:6px 8px; border-radius:8px;
       border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+
+    .search-bar { position:sticky; top:0; z-index:400; display:flex; align-items:center; gap:8px;
+      background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:8px 12px;
+      margin:18px 0; box-shadow:0 2px 10px rgba(0,0,0,.06); font-family:'Inter',sans-serif; }
+    .search-bar .search-icon { font-size:.9rem; opacity:.6; }
+    .search-bar input { flex:1; border:none; background:transparent; font-family:'Inter',sans-serif;
+      font-size:.92rem; color:var(--ink); outline:none; min-width:0; }
+    .search-bar input::placeholder { color:#a89f93; }
+    .search-count { font-size:.75rem; color:var(--accent-dark); white-space:nowrap; opacity:.8; }
+    .search-nav, .search-clear { border:none; background:var(--bg); color:var(--accent-dark); width:26px; height:26px;
+      border-radius:6px; cursor:pointer; font-size:.8rem; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; }
+    .search-nav:hover, .search-clear:hover { background:var(--accent); color:#fff; }
+    mark.search-hit { background:#F4C97A; color:var(--ink); border-radius:3px; padding:0 1px; }
+    mark.search-hit.active-hit { background:var(--accent); color:#fff; }
+
+    .strategy-menu { margin:14px 0; font-family:'Inter',sans-serif; }
+    .strategy-toggle { width:100%; display:flex; align-items:center; justify-content:space-between;
+      background:var(--accent); color:#fff; border:none; border-radius:12px; padding:12px 16px;
+      font-family:'Inter',sans-serif; font-size:.92rem; font-weight:600; cursor:pointer;
+      box-shadow:0 2px 10px rgba(0,0,0,.08); }
+    .strategy-toggle:hover { background:var(--accent-dark); }
+    #strategyArrow { transition:transform .2s ease; }
+    .strategy-menu.open #strategyArrow { transform:rotate(180deg); }
+    .strategy-panel { display:none; flex-direction:column; background:var(--paper); border:1px solid var(--line);
+      border-top:none; border-radius:0 0 12px 12px; padding:6px 0; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+    .strategy-menu.open .strategy-panel { display:flex; }
+    .strategy-panel a { padding:9px 18px; font-size:.86rem; color:var(--ink); text-decoration:none;
+      border-bottom:1px solid var(--line); }
+    .strategy-panel a:last-child { border-bottom:none; }
+    .strategy-panel a:hover { background:var(--bg); }
+    .strategy-panel a.strategy-sub { padding-left:32px; font-size:.78rem; color:#7a746c; }
+
     @media (max-width:900px) {
       .doc-selector { left:12px; bottom:12px; }
       .back-top { bottom:12px; right:12px; }
+      .search-bar { margin:12px 0; }
+      .search-bar input { font-size:.85rem; }
     }
 
     @media (max-width:900px) {
@@ -143,8 +180,17 @@
 <div class="menu-overlay" id="menuOverlay"></div>
 <div class="layout">
 <nav class="sidebar" id="sidebarNav">
+  <span class="theme-tag">Consulta Rápida</span>
+  <a href="#índice-de-objeciones"><span class="nav-dot"></span>❓Índice de Objeciones</a>
+  <a href="#está-comparando-con-otras-clínicas" class="nav-sub">↳ Compara con otras clínicas / precio</a>
+  <a href="#preguntas-frecuentes-logística-y-pagos"><span class="nav-dot"></span>📋Preguntas Frecuentes · Logística y Pagos</a>
+  <a href="#activar-leads"><span class="nav-dot"></span>📲Activar Leads</a>
+  <a href="#primera-llamada-si-no-contesta" class="nav-sub">↳ 1ª llamada si no contesta (secuencia)</a>
+  <a href="#no-acudió-a-la-visita" class="nav-sub">↳ No acudió a la visita</a>
+  <a href="#último-recurso-coordinación-médica" class="nav-sub">↳ Último recurso: coordinación médica</a>
+  <a href="#protocolo-anti-plantones-y-reenganche-cirugía-plástica"><span class="nav-dot"></span>📵Protocolo Anti-Plantones y Reenganche</a>
+  <hr class="nav-divider" />
   <span class="theme-tag">Cirugía Plástica</span>
-  <a href="#índice-de-objeciones"><span class="nav-dot"></span>Índice de Objeciones</a>
 <a href="#aumento-de-pecho"><span class="nav-dot"></span>👙Aumento de Pecho</a>
 <a href="#recambio-de-prótesis"><span class="nav-dot"></span>🔄Recambio de Prótesis</a>
 <a href="#reducción-de-mama"><span class="nav-dot"></span>🔻Reducción de Mama</a>
@@ -169,16 +215,6 @@
 <a href="#labioplastia"><span class="nav-dot"></span>🌸Labioplastia</a>
 <a href="#implante-capilar-técnica-fue"><span class="nav-dot"></span>💇Implante Capilar · Técnica FUE</a>
 <a href="#ginecomastia"><span class="nav-dot"></span>👨Ginecomastia</a>
-<a href="#venta-consultiva"><span class="nav-dot"></span>🎯Venta Consultiva · Pain-Selling</a>
-<a href="#las-4-fases-del-método" class="nav-sub">Las 4 fases del método</a>
-<a href="#3-reglas-de-oro-para-que-sea-ético-y-natural" class="nav-sub">3 reglas de oro</a>
-<a href="#un-mismo-método-dos-ritmos-distintos" class="nav-sub">Dos ritmos: cirugía vs. estética</a>
-<a href="#estrategia-por-tipo-de-cliente"><span class="nav-dot"></span>👤Estrategia por Tipo de Cliente</a>
-<a href="#presentar-presupuesto-de-cirugía"><span class="nav-dot"></span>🏥Presentar Presupuesto de Cirugía</a>
-<a href="#preguntas-frecuentes-logística-y-pagos"><span class="nav-dot"></span>📋Preguntas Frecuentes · Logística y Pagos</a>
-<a href="#activar-leads"><span class="nav-dot"></span>📲Activar Leads</a>
-<a href="#no-acudió-a-la-visita" class="nav-sub">No acudió a la visita</a>
-<a href="#protocolo-anti-plantones-y-reenganche-cirugía-plástica"><span class="nav-dot"></span>📵Protocolo Anti-Plantones y Reenganche · Cirugía Plástica</a>
 </nav>
 <main>
   <header class="doc-hero" id="top">
@@ -186,6 +222,25 @@
     <h1>Cirugía Plástica</h1>
     <p>Protocolos de asesoría consultiva, argumentarios y role plays por perfil de paciente.</p>
   </header>
+  <div class="search-bar" id="searchBar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Buscar mensajes, objeciones, tratamientos..." autocomplete="off">
+    <span class="search-count" id="searchCount"></span>
+    <button class="search-nav" id="searchPrev" title="Anterior">↑</button>
+    <button class="search-nav" id="searchNext" title="Siguiente">↓</button>
+    <button class="search-clear" id="searchClear" title="Limpiar">✕</button>
+  </div>
+  <div class="strategy-menu" id="strategyMenu">
+    <button class="strategy-toggle" id="strategyToggle">🎯 Venta y Estrategia <span id="strategyArrow">▾</span></button>
+    <div class="strategy-panel" id="strategyPanel">
+      <a href="#venta-consultiva">Venta Consultiva · Pain-Selling</a>
+      <a href="#las-4-fases-del-método" class="strategy-sub">↳ Las 4 fases del método</a>
+      <a href="#3-reglas-de-oro-para-que-sea-ético-y-natural" class="strategy-sub">↳ 3 reglas de oro</a>
+      <a href="#un-mismo-método-dos-ritmos-distintos" class="strategy-sub">↳ Dos ritmos: cirugía vs. estética</a>
+      <a href="#estrategia-por-tipo-de-cliente">Estrategia por Tipo de Cliente</a>
+      <a href="#presentar-presupuesto-de-cirugía">Presentar Presupuesto de Cirugía</a>
+    </div>
+  </div>
   <hr />
 <h2 id="índice-de-objeciones">Índice de Objeciones</h2>
 <h3>Busca la objeción, ve directa al tratamiento</h3>
@@ -208,6 +263,23 @@
 <p><a href="#mastopexia">Mastopexia</a> · <a href="#body-lift">Body Lift</a></p>
 <h4>🧠 Paciente muy informada (quiere detalle técnico)</h4>
 <p><a href="#aumento-de-pecho">Aumento de Pecho</a> · <a href="#recambio-de-prótesis">Recambio de Prótesis</a> · <a href="#reducción-de-mama">Reducción de Mama</a> · <a href="#blefaroplastia">Blefaroplastia</a> · <a href="#rinoplastia">Rinoplastia</a> · <a href="#lifting-de-cuello">Lifting de Cuello</a> · <a href="#lifting-facial">Lifting Facial</a> · <a href="#mentoplastia">Mentoplastia</a> · <a href="#bichectomía">Bichectomía</a> · <a href="#otoplastia">Otoplastia</a> · <a href="#liposucción-hd">Liposucción HD</a> · <a href="#abdominoplastia">Abdominoplastia</a> · <a href="#glúteos-con-grasa-propia">Glúteos con Grasa Propia</a> · <a href="#labioplastia">Labioplastia</a></p>
+<h4 id="está-comparando-con-otras-clínicas">🔍 Está comparando con otras clínicas</h4>
+<p><em>Objetivo:</em> no entrar en guerra de precios ni hablar mal de otras clínicas (nunca, aunque el paciente lo haga — resta profesionalidad y genera desconfianza). Se compite por valor, no por precio: qué incluye realmente el presupuesto, quién opera, y qué pasa si algo sale distinto a lo esperado.</p>
+<p><strong>"En otra clínica me lo hacen más barato"</strong></p>
+<div class="quote-card"><p class="quote-text">&ldquo;Tiene sentido que compares, es lo normal en una decisión así. Antes de fijarte solo en el precio, yo preguntaría qué incluye exactamente esa cifra: si cubre la anestesia, el hospital, todas las revisiones postoperatorias, y qué pasa si hiciera falta un retoque. Aquí en el presupuesto va todo incluido desde el primer día, sin sorpresas después. Al final quién te opera y la seguridad del proceso pesan mucho más que el número inicial.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<p><strong>"En [otra clínica] me han dado presupuesto de [X€], mucho menos que aquí"</strong> <span style="font-weight:400;opacity:.65;font-size:.85em;">· ya tiene una cifra concreta en la mano</span></p>
+<div class="quote-card"><p class="quote-text">&ldquo;Gracias por decírmelo, así puedo ayudarte mejor. En cirugía, una diferencia de precio tan grande casi siempre viene de algo concreto: el hospital donde se opera, si el precio incluye o no todas las revisiones y un posible retoque, o el seguro que cubre la intervención. No te puedo hablar de cómo trabaja esa clínica en concreto, pero si quieres, repasamos juntas qué incluye exactamente ese presupuesto para que compares con el nuestro punto por punto, no solo el número final. Es tu cuerpo, y ahí no merece la pena arriesgar por ahorrar en lo que no se ve.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<p><strong>Argumento de la experiencia del cirujano</strong></p>
+<div class="quote-card"><p class="quote-text">&ldquo;el Dr. Daniel Vázquez lleva 33 años ejerciendo como especialista en Cirugía Plástica, Reparadora y Estética, y es el director médico de Estetic Grup. No es solo la técnica, es la experiencia para anticipar y resolver cualquier imprevisto en quirófano. Eso es lo que de verdad estás pagando: quién te opera, no solo qué te operan.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<p style="opacity:.7;font-size:.85em;">⚠️ Este dato (33 años, MIR en Vall d'Hebron, etc.) es específico del Dr. Vázquez. Si la paciente va a operarse con otro doctor del equipo, avísame y preparo el mismo guion con sus credenciales — no uses estos datos para otro doctor.</p>
+<p><strong>Si quiere más detalle</strong> <span style="font-weight:400;opacity:.65;font-size:.85em;">· Paciente muy informada, pide credenciales concretas</span></p>
+<p>Se formó vía MIR en el Hospital Universitari Vall d'Hebron, especialista desde 1993 (33 años de ejercicio directo en la especialidad, casi 40 desde que se licenció en Medicina). Fue Jefe de la Unidad de Cirugía Plástica en el Hospital de Mataró. Es miembro de la Sociedad Española de Cirugía Plástica, Reparadora y Estética (SECPRE) y del Colegio Oficial de Médicos de Barcelona (COMB), y cuenta con maestrías en Senología/Patología Mamaria y en Microcirugía.</p>
+<p><strong>"Voy a mirar otras opciones antes de decidir"</strong></p>
+<div class="quote-card"><p class="quote-text">&ldquo;Me parece bien, es una decisión importante y lo normal es comparar. Mientras lo valoras, ¿quieres que te deje el presupuesto detallado con todo lo que incluye? Así comparas con seguridad, no solo el precio final sino todo lo que hay detrás.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<p><strong>Desconfianza por algo que oyó de otra clínica</strong></p>
+<div class="quote-card"><p class="quote-text">&ldquo;Entiendo la preocupación. No puedo hablarte de cómo trabaja otra clínica, pero sí te cuento cómo lo hacemos aquí: operamos en el Hospital Vithas Barcelona, un hospital acreditado, el presupuesto es cerrado sin sorpresas, y el seguimiento postoperatorio va incluido, no es aparte.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+<div class="quote-card"><div class="quote-label">Argumentario Rápido · Por qué aquí y no en otro sitio</div><p class="quote-text">&ldquo;Hospital Vithas Barcelona acreditado · Presupuesto cerrado, todo incluido · Seguimiento postoperatorio incluido, no aparte · Equipo médico con experiencia contrastada · Financiación flexible sin sorpresas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
+
 <h4>🎯 Objeciones técnicas concretas (con la respuesta ya lista)</h4>
 <ul>
 <li>"Me preocupa que el pelo trasplantado se caiga" → <a href="#implante-capilar-técnica-fue">Implante Capilar</a></li>
@@ -304,11 +376,11 @@
 <h4>Preocupada por la Rotura <span style="font-weight:400;opacity:.65;font-size:.85em;">· Hallazgo en mamografía</span></h4>
 <p>"Es más frecuente de lo que parece, y por eso se recomienda revisión periódica. <span class="doc-dyn" data-type="full">el Dr. Daniel Vázquez</span> valora en consulta el estado exacto y qué opción es mejor para ti: recambio simple o combinado con otra técnica si hace falta. Lo importante es que ya lo has detectado a tiempo."</p>
 <h4>Años Sin Síntomas <span style="font-weight:400;opacity:.65;font-size:.85em;">· "Si no me duele, ¿hace falta cambiarlas?"</span></h4>
-<p>"Es la duda más habitual. El problema es que una rotura puede no dar ningún síntoma durante años, sobre todo si es intracapsular. Por eso se recomienda revisión de imagen a partir de los 10 años, y cambio preventivo aunque no notes nada raro."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Es la duda más habitual. El problema es que una rotura puede no dar ningún síntoma durante años, sobre todo si es intracapsular. Por eso se recomienda revisión de imagen a partir de los 10 años, y cambio preventivo aunque no notes nada raro.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Miedo a Repetir la Cirugía <span style="font-weight:400;opacity:.65;font-size:.85em;">· Ansiedad por segunda intervención</span></h4>
 <p>Suele ser una cirugía más corta y con recuperación más rápida que la primera, salvo que se combine con otra técnica (mastopexia, cambio de plano). Se explica la diferencia con la primera cirugía para bajar la ansiedad: el cuerpo ya "sabe" tener prótesis, la adaptación es menor.</p>
 <h4>Dudas Económicas <span style="font-weight:400;opacity:.65;font-size:.85em;">· "Ya pagué esto una vez"</span></h4>
-<p>"Entiendo la sensación, pero es mantenimiento de salud, no un capricho repetido. Miramos opciones de financiación para que no te suponga un golpe de golpe."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Entiendo la sensación, pero es mantenimiento de salud, no un capricho repetido. Miramos opciones de financiación para que no te suponga un golpe de golpe.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Indecisa Entre Cambiar o Quitárselas <span style="font-weight:400;opacity:.65;font-size:.85em;">· Duda entre recambio y explantación</span></h4>
 <p>"Las dos opciones son totalmente válidas, no hay una mejor que otra — depende de qué quieras tú a partir de ahora. En la valoración repasamos las dos posibilidades para que decidas con toda la información." <em>(Si se decanta por quitárselas sin sustituir, deriva a la sección <a href="#explantación-de-prótesis-mamarias">Explantación de Prótesis Mamarias</a>.)</em></p>
 <div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Quieres que reservemos la valoración con <span class="doc-dyn" data-type="short">el doctor</span> para ver el estado exacto de la prótesis y las opciones? Así sales con un diagnóstico claro y un presupuesto cerrado, sin dar más vueltas al tema.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
@@ -351,13 +423,13 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;La piel cae por el paso del tiempo, el embarazo o los cambios de peso, no porque hayas hecho nada mal. Aquí simplemente la recolocamos donde estaba antes.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional <span style="font-weight:400;opacity:.65;font-size:.85em;">· Llanto · Renacimiento</span></h4>
-<p>"Hay mujeres que lloran de emoción la primera vez que se ven. Es reencontrarse con su reflejo."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Hay mujeres que lloran de emoción la primera vez que se ven. Es reencontrarse con su reflejo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Miedo a Cicatrices <span style="font-weight:400;opacity:.65;font-size:.85em;">· Preocupación frecuente</span></h4>
 <p>Las cicatrices se planifican de forma estética. Con cuidados se atenúan mucho. Pasado un año, en la mayoría de casos apenas visibles.</p>
 <h4>Miedo al Postop. <span style="font-weight:400;opacity:.65;font-size:.85em;">· Ansiedad</span></h4>
 <p>No suele ser dolorosa, más bien molestia por inflamación. El sujetador postquirúrgico ayuda. Vida tranquila desde la primera semana.</p>
 <h4>Pareja en Contra <span style="font-weight:400;opacity:.65;font-size:.85em;">· Conflicto</span></h4>
-<p>"No va de cómo te ven los demás. Va de cómo te ves tú. Si tú no estás cómoda, eso también se refleja en tu relación."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;No va de cómo te ven los demás. Va de cómo te ves tú. Si tú no estás cómoda, eso también se refleja en tu relación.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Exp. Negativa Previa <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desconfianza</span></h4>
 <p>Estudio muy personalizado. A veces basta con reposicionar mejor o cambiar la técnica empleada.</p>
 <h4>Dudas Económicas <span style="font-weight:400;opacity:.65;font-size:.85em;">· Freno financiero</span></h4>
@@ -423,7 +495,7 @@
 <h4>Pareja en Contra <span style="font-weight:400;opacity:.65;font-size:.85em;">· Conflicto</span></h4>
 <p>"¿Y tú qué sientes al mirarte en el espejo?" Decisión legítima y personal. No se trata de cambiar la cara, sino de recuperar la esencia.</p>
 <h4>Miedo a la Cirugía <span style="font-weight:400;opacity:.65;font-size:.85em;">· Anestesia local</span></h4>
-<p>No es anestesia general. Estás consciente pero relajada, proceso muy corto. Postoperatorio muy llevadero sin dolor. "Seguirás siendo tú, pero descansada y luminosa."</p>
+<p>No es anestesia general. Estás consciente pero relajada, proceso muy corto. Postoperatorio muy llevadero, con molestia mínima y controlable. "Seguirás siendo tú, pero descansada y luminosa."</p>
 <h4>Exp. Negativa Previa <span style="font-weight:400;opacity:.65;font-size:.85em;">· Desconfianza</span></h4>
 <p>Seguimiento personalizado, control postoperatorio y equipo especializado en estética facial. Acompañamiento desde el primer día.</p>
 <h4>Autoestima Baja <span style="font-weight:400;opacity:.65;font-size:.85em;">· Dolor psicológico</span></h4>
@@ -476,7 +548,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Es un cambio tan sutil que nadie va a saber decir qué te has hecho. Solo van a notar que sonríes más abierta.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"Muchas mujeres me dicen que recuperan esa expresión abierta y natural que tenían antes."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Muchas mujeres me dicen que recuperan esa expresión abierta y natural que tenían antes.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Insegura</h4>
 <p>No cambia tu expresión, solo mejora la proporción. "No se nota que te has hecho algo, simplemente te ves más fresca."</p>
 <h4>Miedo al Postop.</h4>
@@ -486,7 +558,7 @@
 <h4>Exp. Negativa (Rellenos)</h4>
 <p>No depende de materiales externos. Trabaja con la anatomía. Puede corregir errores de rellenos previos.</p>
 <h4>Pareja en Contra</h4>
-<p>"Muchas parejas dicen: 'No sé qué te has hecho, pero te veo bien'. Y eso es justo lo que buscamos."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Muchas parejas dicen: 'No sé qué te has hecho, pero te veo bien'. Y eso es justo lo que buscamos.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">Cierre</div><p class="quote-text">&ldquo;Es una cirugía menor con un resultado muy potente. No se nota que te has operado, pero sí te ves más joven, más armónica, más viva. ¿Agendamos una valoración médica?&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <hr />
 <h2 id="lifting-de-cuello"><span class="icon">🦢</span>Lifting de Cuello</h2>
@@ -502,7 +574,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;El cuello es de las primeras zonas que se cansa con los años, aunque cuides el resto de la cara. Aquí simplemente le devolvemos la firmeza que ha ido perdiendo poco a poco.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"El cuello es la zona que más rápido delata el tiempo. Los resultados son sutiles pero impactantes. Te devuelve la seguridad que tenías."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;El cuello es la zona que más rápido delata el tiempo. Los resultados son sutiles pero impactantes. Te devuelve la seguridad que tenías.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Miedo al Postop.</h4>
 <p>Cirugía bastante llevadera. Lo más incómodo es el vendaje inicial. En pocos días vida casi normal. Resultado progresivo y muy natural.</p>
 <h4>Muy Informada</h4>
@@ -554,7 +626,7 @@
 </tbody>
 </table>
 <h3>Mensaje Central</h3>
-<p>"El lifting no se trata de cambiar tu cara, sino de reposicionar lo que ya era tuyo. Es devolver al rostro su estructura original, sin artificialidad. No cambia: restaura."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;El lifting no se trata de cambiar tu cara, sino de reposicionar lo que ya era tuyo. Es devolver al rostro su estructura original, sin artificialidad. No cambia: restaura.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Insegura</h4>
 <p>Hoy existen técnicas mucho más suaves como el mini lifting. No tomas ninguna decisión sola. Sin presión.</p>
 <h4>Impaciente</h4>
@@ -562,7 +634,7 @@
 <h4>Muy Informada</h4>
 <p>Puede combinar mini lifting con hilos o lipofilling para potenciar sin hacer lifting completo.</p>
 <h4>Emocional</h4>
-<p>"Cuando nos miramos y nuestra cara ya no nos representa, algo dentro empieza a doler… Esto va de reconciliarte con tu reflejo."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Cuando nos miramos y nuestra cara ya no nos representa, algo dentro empieza a doler… Esto va de reconciliarte con tu reflejo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Económica</h4>
 <p>Mini lifting más accesible, resultado espectacular muchas veces. Pago fraccionado posible.</p>
 <h4>Exp. Negativa</h4>
@@ -583,7 +655,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Es un cambio pequeño en un punto muy concreto, pero cambia cómo se ve toda la cara, un poco como cuando te cambias de gafas y de repente todo el rostro se ve distinto.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Insegura</h4>
-<p>"El mentón parece un detalle pequeño, pero cambia completamente el equilibrio de la cara y cómo te sientes al mirarte."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;El mentón parece un detalle pequeño, pero cambia completamente el equilibrio de la cara y cómo te sientes al mirarte.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Impaciente</h4>
 <p>Con AH resultado al instante. Con cirugía, en una semana ya se nota. Una de las recuperaciones más rápidas.</p>
 <h4>Muy Informada</h4>
@@ -605,7 +677,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Simplemente se retira grasa que ya no cumple ninguna función, como esos mofletes que de bebés eran necesarios y de adultos ya no.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"El rostro es nuestra carta de presentación. Este cambio es pequeño en lo quirúrgico pero enorme en cómo te ves."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;El rostro es nuestra carta de presentación. Este cambio es pequeño en lo quirúrgico pero enorme en cómo te ves.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Muy Informada</h4>
 <p>Las bolas de Bichat solo tienen función en la infancia. Técnica intraoral, sin cicatriz visible. Mejora proyección del pómulo y la mandíbula.</p>
 <h4>Impaciente</h4>
@@ -626,7 +698,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Suele dar más miedo pensarlo que hacerlo, un poco como ir al dentista: el antes asusta más que el después.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"Cambia la manera de mirarte, de posar, incluso de reír sin pensar. Muy transformadora emocionalmente aunque sencilla técnicamente."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Cambia la manera de mirarte, de posar, incluso de reír sin pensar. Muy transformadora emocionalmente aunque sencilla técnicamente.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Impaciente</h4>
 <p>Una de las cirugías con resultados más inmediatos. En una semana vida normal. El cambio se ve desde el primer día.</p>
 <h4>Económica</h4>
@@ -647,11 +719,11 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;No es una operación para adelgazar, es para esculpir esas zonas concretas que no responden ni a dieta ni a deporte.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Decidida</h4>
-<p>"Perfecto, es justo la técnica pensada para eso: reduce volumen en la zona exacta y mejora el contorno, sin necesidad de nada más agresivo."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Perfecto, es justo la técnica pensada para eso: reduce volumen en la zona exacta y mejora el contorno, sin necesidad de nada más agresivo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Muy Informada</h4>
 <p>Se trabaja con cánulas de pocos milímetros y movimiento controlado que respeta vasos y nervios. No sustituye la pérdida de peso: remodela el contorno donde la grasa no responde.</p>
 <h4>Exp. Negativa</h4>
-<p>"Cuidamos mucho la técnica y el postoperatorio (faja, drenaje linfático) para que el resultado quede uniforme, sin irregularidades."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Cuidamos mucho la técnica y el postoperatorio (faja, drenaje linfático) para que el resultado quede uniforme, sin irregularidades.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Económica</h4>
 <p>Es la opción más accesible dentro de las liposucciones. Ideal para empezar por una zona y ampliar más adelante si se desea. Financiación disponible.</p>
 <div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Te reservo la valoración con <span class="doc-dyn" data-type="short">el doctor</span>? Ahí valora qué zonas tratar y sales con presupuesto cerrado.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
@@ -669,11 +741,11 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;No es solo quitar grasa, es dejar ver el músculo que ya tienes debajo, como cuando por fin se nota el trabajo que llevas haciendo en el gimnasio.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Decidida</h4>
-<p>"Cuanto más claro lo tienes, más preciso puede ser el diseño. Es como esculpir el cuerpo resaltando tus músculos naturales."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Cuanto más claro lo tienes, más preciso puede ser el diseño. Es como esculpir el cuerpo resaltando tus músculos naturales.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Muy Informada</h4>
 <p>Tecnología VASER o PAL: separa la grasa sin dañar tejidos. Resultado más definido y seguro. Siempre por encima del músculo.</p>
 <h4>Exp. Negativa</h4>
-<p>"En lipo tradicional solo se quita volumen. Esta trabaja tridimensionalmente: no solo elimina, perfila y resalta."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;En lipo tradicional solo se quita volumen. Esta trabaja tridimensionalmente: no solo elimina, perfila y resalta.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Económica</h4>
 <p>Más precisa que la lipo tradicional, por eso cuesta más. Pero el cambio es más impactante y duradero. Financiación disponible.</p>
 <div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Te reservo la valoración con <span class="doc-dyn" data-type="short">el doctor</span>? Ahí valora tu tono muscular y diseña el mapa exacto de trabajo, con presupuesto cerrado.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
@@ -683,13 +755,13 @@
 <h3>Diferencia clave</h3>
 <p>A diferencia de la liposucción clásica, la lipoescultura busca un resultado estético y natural adaptándose a la anatomía. No sustituye pérdida de peso, pero mejora la forma corporal. Zonas: abdomen, flancos, caderas, cartucheras, muslos, rodillas, brazos, papada, espalda. 1,5–3 h. Faja y drenajes.</p>
 <h4>Insegura</h4>
-<p>"No es cambiar quién eres, es alinearte contigo. Tu cuerpo reflejando cómo te ves por dentro."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;No es cambiar quién eres, es alinearte contigo. Tu cuerpo reflejando cómo te ves por dentro.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Miedo al Postop.</h4>
 <p>Molestias como agujetas fuertes 4–5 días. Controlable con medicación. Faja y masajes son clave. Muy satisfactorio.</p>
 <h4>Económica</h4>
 <p>Trabajar por zonas. Empezar con abdomen y flancos (gran impacto visual). Financiación sin intereses.</p>
 <h4>Exp. Negativa</h4>
-<p>"Aquí nos centramos no solo en quitar grasa, sino en armonizar el cuerpo completo. Muchos pacientes mejoran resultados anteriores."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Aquí nos centramos no solo en quitar grasa, sino en armonizar el cuerpo completo. Muchos pacientes mejoran resultados anteriores.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Hay zonas que no bajan ni a dieta ni a deporte, y es por genética, no por falta de esfuerzo tuyo. Aquí se trabaja justo en esas zonas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Reservamos la valoración con <span class="doc-dyn" data-type="short">el doctor</span>? Ahí diseña el mapa de trabajo para armonizar tu figura, y sales con presupuesto cerrado.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <hr />
@@ -734,7 +806,7 @@
 <h4>Económica</h4>
 <p>Precio cerrado desde X€ incluye hospital, anestesia, drenaje, faja, 5 sesiones post, controles. Opciones de pago 6–36 meses.</p>
 <h4>Pareja en Contra</h4>
-<p>"Tu cuerpo, tu decisión. No lo haces por agradarle, lo haces por sentirte tú. Aquí caminamos contigo, paso a paso."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Tu cuerpo, tu decisión. No lo haces por agradarle, lo haces por sentirte tú. Aquí caminamos contigo, paso a paso.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;Después de un embarazo o de adelgazar mucho, la piel se queda como una goma que ha perdido elasticidad. Aquí retiramos lo que sobra y volvemos a dejarla tensa.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">Cierre Comercial Ético</div><p class="quote-text">&ldquo;¿Reservamos la valoración con <span class="doc-dyn" data-type="short">el doctor</span>? Ahí valora tu piel y musculatura, define la técnica exacta, y sales con presupuesto cerrado.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <hr />
@@ -758,7 +830,7 @@
 <h4>Datos Técnicos</h4>
 <p>Anestesia general · 4–6 horas · 1–2 noches ingreso · Faja compresiva varias semanas · Reincorporación 3–4 semanas · Cicatrices amplias pero planificadas</p>
 <h4>Emocional (Pérdida Peso)</h4>
-<p>"Has hecho un trabajo increíble. Esta cirugía es el paso final para cerrar ese proceso. No es vanidad: es coherencia con lo que has logrado."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Has hecho un trabajo increíble. Esta cirugía es el paso final para cerrar ese proceso. No es vanidad: es coherencia con lo que has logrado.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Miedo al Postop.</h4>
 <p>Cirugía importante, el postoperatorio exige paciencia. Se lleva bien con los cuidados indicados. Desde el principio se nota el cambio. Vale la pena totalmente.</p>
 <h4>Cicatrices</h4>
@@ -780,7 +852,7 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es tu propia grasa, solo que colocada donde tu cuerpo la necesita. No metemos nada que no sea tuyo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"Muchas pacientes me dicen que por primera vez se sienten cómodas en bañador. Es un cambio que empieza por fuera pero se nota por dentro."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Muchas pacientes me dicen que por primera vez se sienten cómodas en bañador. Es un cambio que empieza por fuera pero se nota por dentro.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Muy Informada</h4>
 <p>Técnicas seguras, grasa inyectada por encima del músculo. Zonas de extracción seleccionadas para esculpir la figura. Protocolos médicos actualizados.</p>
 <h4>Miedo al Postop.</h4>
@@ -818,11 +890,11 @@
 </tbody>
 </table>
 <h4>Emocional</h4>
-<p>"Muchas mujeres, tras perder peso, sienten que hicieron todo lo posible pero hay zonas que no responden sin cirugía. Esto es cerrar un ciclo."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Muchas mujeres, tras perder peso, sienten que hicieron todo lo posible pero hay zonas que no responden sin cirugía. Esto es cerrar un ciclo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Impaciente</h4>
 <p>A las 2 semanas vida moderada. Mes: casi normalidad. Resultado final desde el 3º mes. Planificable para verano.</p>
 <h4>Pareja en Contra</h4>
-<p>"A veces la pareja no entiende lo que supone vivir con un complejo que condiciona el día a día. Es sentirte a gusto con tu cuerpo, sin esconderte."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;A veces la pareja no entiende lo que supone vivir con un complejo que condiciona el día a día. Es sentirte a gusto con tu cuerpo, sin esconderte.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Económica</h4>
 <p>Valorar si basta un mini lifting (más económico, recuperación más corta). Financiación accesible disponible.</p>
 <div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es la misma piel que se queda floja en el abdomen tras adelgazar, pero en la parte interna de la pierna. Se retira lo que sobra y se deja firme otra vez.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
@@ -840,13 +912,13 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💡 Analogía para el Paciente</div><p class="quote-text">&ldquo;¿Sabes cuando llevas manga larga en pleno verano para no enseñar los brazos? Esto es justo lo contrario: poder ponerte lo que te apetezca sin pensarlo dos veces.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"Cuando una persona ha cambiado por dentro, quiere que su cuerpo refleje esa transformación. Esto va de reconocer tu esfuerzo."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Cuando una persona ha cambiado por dentro, quiere que su cuerpo refleje esa transformación. Esto va de reconocer tu esfuerzo.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Impaciente</h4>
 <p>Recuperación 10–15 días. Coordinar para llegar a fecha especial. Cicatrices en cara interna del brazo, difíciles de ver.</p>
 <h4>Económica</h4>
 <p>Mini braquioplastia más económica para casos leves-moderados. Financiación sin intereses o cuotas muy flexibles.</p>
 <h4>Pareja en Contra</h4>
-<p>"No es por vanidad. Es por autoestima, por sentirte a gusto con tu cuerpo y no tener que esconder tus brazos."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;No es por vanidad. Es por autoestima, por sentirte a gusto con tu cuerpo y no tener que esconder tus brazos.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <div class="quote-card"><div class="quote-label">Cierre</div><p class="quote-text">&ldquo;El lifting de brazos cambia la forma en que una persona se mueve, se viste y se mira. La sensación de libertad después de eliminar esa piel sobrante no tiene precio. ¿Agendamos valoración médica?&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <hr />
 <h2 id="labioplastia"><span class="icon">🌸</span>Labioplastia</h2>
@@ -862,13 +934,13 @@
 </ul>
 <div class="quote-card"><div class="quote-label">💬 Cómo explicarlo simple</div><p class="quote-text">&ldquo;Es mucho más habitual de lo que la gente piensa, simplemente no se habla de ello. Si te incomoda al vestir o hacer deporte, tiene solución, y es más sencilla de lo que imaginas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Insegura</h4>
-<p>"Es más común de lo que parece. Muchas mujeres sienten incomodidad con esa zona y no lo comentan. Lo importante es que si te está afectando, hay solución, y es más sencilla de lo que imaginas."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Es más común de lo que parece. Muchas mujeres sienten incomodidad con esa zona y no lo comentan. Lo importante es que si te está afectando, hay solución, y es más sencilla de lo que imaginas.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Emocional</h4>
-<p>"No es solo un cambio físico. Es recuperar seguridad en ti misma, sentirte bien en tu cuerpo sin vergüenzas ni complejos, incluso en la intimidad."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;No es solo un cambio físico. Es recuperar seguridad en ti misma, sentirte bien en tu cuerpo sin vergüenzas ni complejos, incluso en la intimidad.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Muy Informada</h4>
 <p>Técnicas: resección en cuña o remodelado lineal. Según objetivo: reducir volumen, eliminar pigmentación o definir contorno. Cirujanas especializadas en ginecoestética.</p>
 <h4>Pareja en Contra</h4>
-<p>"Esto no se hace por otra persona. Se hace por ti. Es tu cuerpo, tu decisión, tu comodidad."</p>
+<div class="quote-card"><p class="quote-text">&ldquo;Esto no se hace por otra persona. Se hace por ti. Es tu cuerpo, tu decisión, tu comodidad.&rdquo;</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar</button></div>
 <h4>Impaciente</h4>
 <p>Ambulatoria. Resultado desde la primera semana. Aspecto final a partir del mes. Planificable sin interrumpir la rutina.</p>
 <h4>Económica</h4>
@@ -1098,7 +1170,7 @@
 
 <h3>📞 Llamadas Telefónicas</h3>
 
-<h4>Nuevo Lead · Solicitó Información de un Tratamiento — Primera Llamada</h4>
+<h4 id="primera-llamada-si-no-contesta">Nuevo Lead · Solicitó Información de un Tratamiento — Primera Llamada</h4>
 <p><em>Objetivo:</em> contactar rápido (idealmente primeras 2h) para no perder el momento de interés. Antes de explicar nada, se pregunta qué busca la paciente — la información se adapta a lo que cuenta, no al revés.</p>
 <p><strong>Si contesta</strong></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen, de Estetic Grup. Te llamo porque nos escribiste preguntando por [tratamiento]. Cuéntame un poco qué es lo que buscas o qué te gustaría conseguir, así te oriento bien desde el principio.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
@@ -1122,6 +1194,7 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen, de Estetic Grup. Te llamo porque hace un tiempo hablamos de [tratamiento] y quería saber cómo lo llevas: si sigue interesándote o si ya no es el momento.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Si salta el buzón</strong></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], soy Carmen de Estetic Grup. No hace falta que devuelvas la llamada si no es buen momento, solo quería saber si seguías interesada en [tratamiento]. Te escribo también por WhatsApp por si te viene mejor.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p style="opacity:.7;font-size:.85em;">💡 Si tras esto tampoco hay respuesta, remata por WhatsApp con el mensaje de <strong>"Cierre de ficha"</strong> — suele generar más respuesta que seguir llamando.</p>
 
 <h4>Presupuesto Enviado Sin Respuesta</h4>
 <p><em>Objetivo:</em> llamar para resolver una duda, no para preguntar "¿y qué has decidido?". Eso genera rechazo, no respuesta.</p>
@@ -1174,11 +1247,14 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 👋 Te escribo porque no supimos más de ti tras tu consulta por [tratamiento]. Sin compromiso: ¿lo retomamos o lo dejamos aparcado por ahora?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo C</strong> <span style="opacity:.6;font-size:.85em;">(tono más suave, para leads muy fríos de hace meses)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Sé que ha pasado tiempo desde que hablamos de [tratamiento], así que no sé si sigue siendo algo que te interese. Si es que sí, dime y te cuento las novedades que tenemos ahora. Y si no, no pasa nada, solo dímelo y no te vuelvo a escribir por esto.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo D · Cierre de ficha</strong> <span style="opacity:.6;font-size:.85em;">(si ninguno de los anteriores tuvo respuesta — última bala, suele funcionar mejor que insistir otra vez)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], llevo tiempo sin saber de ti sobre [tratamiento], así que entiendo que quizá ya no sea el momento. Voy a cerrar tu ficha por ahora — si en algún momento te interesa retomarlo, solo dime y seguimos donde lo dejamos, sin ningún compromiso.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<h4>Presupuesto Enviado Sin Respuesta</h4>
 <p><em>Objetivo:</em> no perseguir el dinero, perseguir la duda. Casi nunca es el precio lo que frena, suele ser miedo o falta de tiempo para decidir. En cirugía la decisión es lenta: no vale un solo mensaje, hay que escalonarlo sin sonar pesada.</p>
 <p><strong>1 · Primer seguimiento</strong> <span style="opacity:.6;font-size:.85em;">(3–5 días después de enviar el presupuesto o tras la visita de valoración)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], buenas tardes 🙂 Soy Carmen, de Estetic Grup. Te escribía porque hace un tiempo viniste a la visita de valoración de [tratamiento] y quería saber si has tenido oportunidad de pensarlo, y si finalmente has tomado alguna decisión al respecto. Si tienes alguna duda o hay algo que quieras consultar, estaré encantada de ayudarte a resolverlo. Cuando quieras, me dices.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
-<p><strong>2 · Segundo intento</strong> <span style="opacity:.6;font-size:.85em;">(7–10 días después, si no contesta al primero)</span></p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal estás? Sé que este tipo de decisiones no se toman a la ligera, así que tómate el tiempo que necesites. Si lo que te frena tiene que ver con el precio o la financiación, dímelo y lo miramos juntas — muchas pacientes no saben que se puede fraccionar sin intereses. Y si es otra cosa, también estoy aquí para ayudarte.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>2 · Segundo intento · Gancho</strong> <span style="opacity:.6;font-size:.85em;">(7–10 días después, si no contesta al primero)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal estás? Sé que este tipo de decisiones no se toman a la ligera. Si lo que te frena es el precio o la financiación, la fecha, los nervios de la cirugía en sí, o hablarlo antes con tu pareja o familia, dímelo y lo miramos juntas — muchas veces se resuelve más fácil de lo que parece. Y si es otra cosa, también estoy aquí para ayudarte.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>3 · Cierre</strong> <span style="opacity:.6;font-size:.85em;">(15–20 días después, si sigue sin respuesta)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no quería dejar esto en el aire. Entiendo que [tratamiento] es una decisión importante y que quizá ahora no sea el momento, y está totalmente bien. Si en algún momento te apetece retomarlo, solo dime y lo vemos. Y si ya no te interesa, dímelo tranquilamente para no insistir más. Un abrazo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p style="opacity:.7;font-size:.85em;margin-top:.8em;">💡 Diferencia entre los tres: el 1º deja la puerta abierta sin presionar, el 2º nombra el motivo más probable del silencio (dinero) sin preguntarlo directamente, el 3º cierra el ciclo sin presión — así evitas sonar pesada si tienes que escribirle varias veces a la misma persona. Si contesta con una objeción concreta (precio, miedo, pareja...), busca el tratamiento en el <a href="#índice-de-objeciones">Índice de Objeciones</a> y sigue el guion de esa sección.</p>
@@ -1198,6 +1274,10 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre], ¿qué tal? Quería saber cómo te quedaste después de hablar con <span class="doc-dyn" data-type="short">el doctor</span>. Si algo no te quedó claro en la consulta, dímelo y te lo resuelvo por aquí mismo.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si notaste que dudaba entre dos opciones en la visita)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Se me quedó la duda de si al final te decantas más por [opción A] o por [opción B] de lo que hablasteis con <span class="doc-dyn" data-type="short">el doctor</span>. Si quieres que repasemos ventajas de cada una otra vez, dímelo sin problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo C · Gancho recomendado</strong> <span style="opacity:.6;font-size:.85em;">(7-10 días después, si A o B no tuvieron respuesta)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Sé que tras la visita a veces quedan dudas que cuesta expresar. Si lo que te frena es el precio, la fecha, los nervios de la cirugía en sí, o hablarlo antes con tu pareja o familia, cuéntamelo — es más fácil de resolver de lo que parece, y estoy aquí para ayudarte con eso, no solo para venderte nada.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo D · Empujón final: escalar al doctor</strong> <span style="opacity:.6;font-size:.85em;">(si sigue indecisa tras C — dar acceso directo suele desbloquear la decisión)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Llevamos un tiempo hablando de [tratamiento] y quiero ayudarte a resolverlo del todo. Si te sirve, puedo agendarte una llamada corta directamente con <span class="doc-dyn" data-type="full">el Dr. Daniel Vázquez</span> para que te resuelva cualquier última duda técnica antes de decidir. A veces eso es justo lo que hace falta para dar el paso con seguridad. ¿Te viene bien?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Pidió Información Pero No Reservó Visita</h4>
 <p><em>Objetivo:</em> mover al lead del "solo estoy mirando" a reservar la visita gratuita, sin presionar con el precio antes de tiempo.</p>
@@ -1205,6 +1285,8 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Soy Carmen, de Estetic Grup. Vi que preguntaste por [tratamiento], ¿quieres que te reserve una visita informativa con <span class="doc-dyn" data-type="full">el Dr. Daniel Vázquez</span>? Es gratuita y sin compromiso, y así puedes resolver todas tus dudas <span class="doc-dyn" data-type="pronoun">con él</span> directamente.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>Ejemplo B</strong> <span style="opacity:.6;font-size:.85em;">(si no contestó al primer mensaje, 5–7 días después)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no sé si sigues con dudas sobre [tratamiento]. Si quieres, sin ningún compromiso, te agendo una primera visita con <span class="doc-dyn" data-type="short">el doctor</span> para que veas opciones reales para tu caso. Cuando quieras me dices y buscamos el hueco que mejor te venga.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Ejemplo C · Gancho recomendado</strong> <span style="opacity:.6;font-size:.85em;">(10-15 días después, si A y B no tuvieron respuesta — nombrar el motivo probable en vez de insistir genérico)</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Sé que preguntaste por [tratamiento] y no llegamos a agendar nada. Muchas veces lo que frena no es el tratamiento en sí, sino la duda del precio, encontrar el momento, o simplemente los nervios de dar el paso. Si me dices cuál es tu caso, te ayudo a resolverlo antes de reservar — la visita informativa no compromete a nada, es solo para que tengas toda la información.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 
 <h4>Cirugía Reservada · Pendiente de Firma o Pago</h4>
 <p><em>Objetivo:</em> recordar el paso administrativo pendiente sin que suene a cobro. La paciente ya decidió, solo falta cerrar el papeleo.</p>
@@ -1217,6 +1299,8 @@
 
 <h4 id="no-acudió-a-la-visita">No Acudió a la Visita</h4>
 <p><em>Objetivo:</em> reabrir la puerta sin reproche. Un plantón no es un "no", casi siempre es que surgió algo — trátalo así.</p>
+<p><strong>1 · Gancho recomendado</strong> <span style="opacity:.6;font-size:.85em;">(nombrar el motivo probable dispara mucho más la respuesta que "espero que esté todo bien")</span></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Vi que no pudiste venir a tu cita de [tratamiento]. No pasa nada, es más habitual de lo que parece — casi siempre es por falta de tiempo, nervios de última hora, o alguna duda de precio. Si me dices cuál fue (o ninguna de las tres 😊) te ayudo a resolverlo y te busco otro hueco.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>1 · Mismo día o día siguiente</strong></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre] 🙂 Vi que hoy no pudiste venir a tu cita con <span class="doc-dyn" data-type="full">el Dr. Daniel Vázquez</span>. Espero que esté todo bien. Si quieres, te busco otro hueco cuando te venga mejor, sin ningún problema.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>1 · Variante</strong> <span style="opacity:.6;font-size:.85em;">(indicando franja horaria directamente)</span></p>
@@ -1225,6 +1309,13 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no sé si al final surgió algo el día de la cita. Sigue en pie lo de [tratamiento] si quieres retomarlo, solo dime qué día te viene bien y te busco hueco.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>3 · Cierre</strong> <span style="opacity:.6;font-size:.85em;">(10-15 días después, si sigue sin respuesta)</span></p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no quería insistir más de la cuenta, pero tampoco quería dejarlo en el aire. Si en algún momento quieres reservar de nuevo la visita informativa de [tratamiento], solo dime y te busco hueco. Y si ya no te interesa, dímelo tranquilamente, no pasa nada. Un abrazo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+
+<h4 id="último-recurso-coordinación-médica">Último Recurso · Reactivación desde Coordinación Médica</h4>
+<p><em>Objetivo:</em> cuando ni el presupuesto ni la visita han tenido respuesta a ninguno de los mensajes anteriores. Cambiar de interlocutor (aunque sea la misma persona firmando distinto, como parte del equipo de coordinación) rompe el patrón y suele captar la atención que el seguimiento habitual ya no consigue. <strong>Importante:</strong> que sea real — habla como equipo de coordinación/equipo médico de la clínica, no inventes un departamento que no existe.</p>
+<p><strong>Si se quedó en el presupuesto sin responder a nada</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo desde el equipo de coordinación médica de Estetic Grup. Vimos que hace un tiempo se te preparó un presupuesto para [tratamiento] y no hemos vuelto a saber de ti. Antes de archivar tu expediente, queríamos asegurarnos de que no quedó ninguna duda sin resolver, o si hay algo que te esté frenando y podamos ayudarte a resolver. ¿Nos cuentas cómo lo ves?</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<p><strong>Si se quedó tras la visita sin responder a nada</strong></p>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], te escribo desde el equipo de coordinación médica de Estetic Grup. Vimos que estuviste en consulta con <span class="doc-dyn" data-type="short">el doctor</span> hace un tiempo y no hemos tenido noticias tuyas desde entonces. Nos gusta hacer seguimiento a todas nuestras pacientes, así que quería preguntarte directamente: ¿cómo te quedaste tras la visita? Si hay algo que resolver, dínoslo y te ayudamos.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <hr />
 <h2 id="protocolo-anti-plantones-y-reenganche-cirugía-plástica"><span class="icon">📵</span>Protocolo Anti-Plantones y Reenganche · Cirugía Plástica</h2>
 <p style="color:#948C82;font-style:italic;font-size:.88rem;margin-top:-.6em;">Captación</p>
@@ -1252,7 +1343,7 @@
 <div class="msg-card"><p class="msg-text">Hola [Nombre], quería saber qué tal te quedaste después de hablar con <span class="doc-dyn" data-type="full">el Dr. Daniel Vázquez</span> sobre [tratamiento]. Si hay algo que no te quedó del todo claro, dímelo y lo repasamos juntas.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>2 · 7 días después, si no responde</strong></p>
 <p>Objetivo: aportar un ángulo nuevo. No repetir la misma pregunta genérica, eso cansa y no da motivo para contestar.</p>
-<div class="msg-card"><p class="msg-text">Hola [Nombre], sé que estas decisiones no se toman de un día para otro. Si lo que te ronda tiene que ver con el pago, te cuento que [tratamiento] se puede financiar [condiciones reales de financiación — pendiente de confirmar]. Y si es otra cosa lo que te frena, también dímelo, prefiero ayudarte con eso que dejarlo en el aire.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
+<div class="msg-card"><p class="msg-text">Hola [Nombre], sé que estas decisiones no se toman de un día para otro. Si lo que te ronda tiene que ver con el pago, te cuento que [tratamiento] se puede financiar sin intereses en cuotas mensuales, para que te resulte más cómodo. Y si es otra cosa lo que te frena, también dímelo, prefiero ayudarte con eso que dejarlo en el aire.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
 <p><strong>3 · 15-20 días después</strong></p>
 <p>Objetivo: cerrar el ciclo con elegancia, dejar la puerta abierta y dar salida fácil sin presión.</p>
 <div class="msg-card"><p class="msg-text">Hola [Nombre], no quería dejar esto en el aire. Sé que lo de [tratamiento] es una decisión importante y puede que ahora no sea el momento, y está bien así. Si en algún momento te apetece retomarlo, solo dime y lo vemos. Y si ya no te interesa, dímelo tranquilamente para no insistir más. Un abrazo, Carmen.</p><button class="copy-btn" onclick="copyNearText(this)">📋 Copiar mensaje</button></div>
@@ -1361,6 +1452,114 @@
     applyDoctor(docSelect.value);
     docPanel.classList.remove('open');
   });
+
+  // Panel de Venta y Estrategia
+  (function() {
+    const menu = document.getElementById('strategyMenu');
+    const toggle = document.getElementById('strategyToggle');
+    if (!menu || !toggle) return;
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('.strategy-panel a').forEach(a => {
+      a.addEventListener('click', () => menu.classList.remove('open'));
+    });
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target)) menu.classList.remove('open');
+    });
+  })();
+
+  // Barra de búsqueda
+  (function() {
+    const input = document.getElementById('searchInput');
+    const countEl = document.getElementById('searchCount');
+    const btnPrev = document.getElementById('searchPrev');
+    const btnNext = document.getElementById('searchNext');
+    const btnClear = document.getElementById('searchClear');
+    const mainEl = document.querySelector('main');
+    let hits = [];
+    let activeIndex = -1;
+
+    function clearHighlights() {
+      mainEl.querySelectorAll('mark.search-hit').forEach(m => {
+        const parent = m.parentNode;
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      });
+      hits = [];
+      activeIndex = -1;
+      countEl.textContent = '';
+    }
+
+    function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+    function highlight(term) {
+      clearHighlights();
+      if (!term || term.trim().length < 2) return;
+      const regex = new RegExp(escapeRegExp(term), 'gi');
+      const walker = document.createTreeWalker(mainEl, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const tag = node.parentNode.tagName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'MARK') return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodesToProcess = [];
+      let node;
+      while ((node = walker.nextNode())) {
+        if (regex.test(node.nodeValue)) nodesToProcess.push(node);
+        regex.lastIndex = 0;
+      }
+      nodesToProcess.forEach(textNode => {
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+        const localRegex = new RegExp(escapeRegExp(term), 'gi');
+        const text = textNode.nodeValue;
+        while ((match = localRegex.exec(text))) {
+          if (match.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          const mark = document.createElement('mark');
+          mark.className = 'search-hit';
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          lastIndex = match.index + match[0].length;
+        }
+        if (lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        textNode.parentNode.replaceChild(frag, textNode);
+      });
+      hits = Array.from(mainEl.querySelectorAll('mark.search-hit'));
+      if (hits.length) {
+        activeIndex = 0;
+        goToHit(0);
+      } else {
+        countEl.textContent = 'Sin resultados';
+      }
+    }
+
+    function goToHit(i) {
+      if (!hits.length) return;
+      hits.forEach(h => h.classList.remove('active-hit'));
+      activeIndex = ((i % hits.length) + hits.length) % hits.length;
+      const hit = hits[activeIndex];
+      hit.classList.add('active-hit');
+      countEl.textContent = (activeIndex + 1) + ' / ' + hits.length;
+      try { hit.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+
+    let debounceTimer;
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => highlight(input.value), 250);
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); goToHit(activeIndex + (e.shiftKey ? -1 : 1)); }
+    });
+    btnNext.addEventListener('click', () => goToHit(activeIndex + 1));
+    btnPrev.addEventListener('click', () => goToHit(activeIndex - 1));
+    btnClear.addEventListener('click', () => { input.value = ''; clearHighlights(); input.focus(); });
+  })();
 </script>
 </body>
 </html>
